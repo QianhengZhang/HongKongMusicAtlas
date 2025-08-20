@@ -33,7 +33,10 @@ const LandingPage = () => {
               Start Exploring
             </Button>
           </div>
-          <Image src="/p7/images/hongkongNight.jpg" style={{borderRadius: '10px'}} alt="HongKong View" className="img-fluid" />
+          <Image src="/HongKongMusicAtlas/images/hongkongNight.jpg" style={{borderRadius: '10px'}} alt="HongKong View" className="img-fluid" />
+          <div className="text-center mt-3">
+            <p className="text-muted">Photo from internet</p>
+          </div>
           <div className="mt-5">
             <h2 className="text-center mb-4" style={{ color: '#333' }}>What You'll Discover</h2>
             <Row>

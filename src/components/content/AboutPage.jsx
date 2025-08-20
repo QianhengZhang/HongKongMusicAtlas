@@ -85,6 +85,8 @@ const AboutPage = () => {
                     song that references a specific Hong Kong location, or if you'd like
                     to help improve the project, please get in touch. <br />
                     <strong>Email: qzhang533@wisc.edu </strong>
+                    <strong>Email: yanbing.chen@wisc.edu</strong>
+                    <strong>Github: <a href="https://github.com/QianhengZhang/HongKongMusicAtlas">https://github.com/QianhengZhang/HongKongMusicAtlas</a></strong>
                   </p>
                 </Card.Body>
               </Card>
