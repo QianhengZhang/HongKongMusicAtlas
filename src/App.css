@@ -577,6 +577,7 @@
   color: #1f2937;
   font-weight: 500;
   line-height: 1.4;
+  white-space: pre-line;
 }
 
 /* Lyrics Section */
@@ -707,6 +708,58 @@
 
 .sidebar::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+/* Language Switcher Styles */
+.language-switcher .dropdown-toggle {
+  background: transparent !important;
+  border: 1px solid white !important;
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  font-size: 0.9rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.language-switcher .dropdown-toggle:hover,
+.language-switcher .dropdown-toggle:focus {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: white !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+.language-switcher .dropdown-toggle:after {
+  border-top-color: white !important;
+}
+
+.language-switcher .dropdown-menu {
+  background: white !important;
+  border: 1px solid #e9ecef !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  padding: 0.5rem 0 !important;
+  margin-top: 0.5rem !important;
+  width: 100% !important;
+  min-width: auto !important;
+}
+
+.language-switcher .dropdown-item {
+  color: #021024 !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+}
+
+.language-switcher .dropdown-item:hover {
+  background: #052659 !important;
+  color: white !important;
+}
+
+.language-switcher .dropdown-item.active {
+  background: #052659 !important;
+  color: white !important;
 }
 
 /* Filter Controls Styles */
@@ -987,6 +1040,191 @@
 }
 
 /* About Page Styles */
+.about-page-container {
+  position: relative;
+  min-height: 100vh;
+  background-image: url('/images/hongkongNight.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.about-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+.about-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.about-content .card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  margin-top: 2rem;
+  margin-bottom: -2rem;
+}
+
+.about-content .card-header {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 16px 16px 0 0;
+}
+
+.about-content .card-body {
+  color: white;
+  border-radius: 0 0 16px 16px;
+}
+
+.about-content .card-body strong {
+  color: #C1E8FF;
+}
+
+/* Ensure all cards have equal height and consistent alignment */
+.about-content .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-content .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.about-content .card-body p,
+.about-content .card-body ul {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.about-content .card-body ul li {
+  margin-bottom: 0.5rem;
+}
+
+.about-content .card-body ul li:last-child {
+  margin-bottom: 0;
+}
+
+/* Ensure consistent spacing between rows */
+.about-content .row {
+  margin-bottom: 1.5rem;
+}
+
+.about-content .row:last-child {
+  margin-bottom: 0;
+}
+
+/* Make sure all columns have consistent height */
+.about-content .col-md-6 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Flip card styles */
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 200px;
+  perspective: 1000px;
+  margin-bottom: 1.5rem;
+}
+
+/* Larger cards for Project Overview and Background */
+.flip-card.large-card {
+  height: 280px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.flip-card-front {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+}
+
+.flip-card-back {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  transform: rotateY(180deg);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 1.5rem;
+}
+
+.flip-card-back h2 {
+  color: white !important;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.flip-card-back p,
+.flip-card-back ul {
+  color: white;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.flip-card-back ul li {
+  margin-bottom: 0.5rem;
+}
+
+.flip-card-back ul li:last-child {
+  margin-bottom: 0;
+}
+
+.flip-card-back strong {
+  color: #C1E8FF;
+}
+
 .about-page {
   width: 100%;
   max-width: 1200px;
@@ -996,7 +1234,7 @@
 .about-content h1 {
   text-align: center;
   margin-bottom: 3rem;
-  color: #333;
+  color: white;
   font-size: clamp(2rem, 5vw, 2.5rem);
 }
 
@@ -1005,22 +1243,22 @@
 }
 
 .about-content h2 {
-  color: #333;
+  color: white;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #667eea;
+  border-bottom: none;
   padding-bottom: 0.5rem;
   font-size: clamp(1.3rem, 3vw, 1.8rem);
 }
 
 .about-content p {
   line-height: 1.6;
-  color: #555;
+  color: white;
   font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .about-content ul {
   line-height: 1.6;
-  color: #555;
+  color: white;
   font-size: clamp(0.9rem, 2vw, 1rem);
 }
 

@@ -48,7 +48,7 @@ function App() {
         <nav className="app-header">
           <div className="main-navigation">
             <div className="nav-brand">
-                      <h1>{t('landing.title', 'Hong Kong Music Atlas')}</h1>
+                      <h1>Lyriscape of Cantopop</h1>
             </div>
             <ul className="nav-links">
               <li><a href="#/map" className="nav-link">{t('nav.map', 'Map')}</a></li>
@@ -70,11 +70,6 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
           </Routes>
         </main>
-
-        {/* Footer */}
-        <footer className="app-footer">
-          <p>{t('footer.copyright', '© 2025 Hong Kong Music Atlas. Exploring Hong Kong\'s musical geography.')}</p>
-        </footer>
       </div>
     </HashRouter>
   )

@@ -95,7 +95,9 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
   
   // Lyrics - use Chinese or English based on language
   const lyricsText = isChinese ? (data.lyrics || 'No lyrics available') : (data.lyrics_en || data.lyrics || 'No lyrics available');
-  const lyricsPreview = lyricsText.length > 300 ? lyricsText.substring(0, 300) + '...' : lyricsText;
+  // Convert \n to actual newlines
+  const processedLyrics = lyricsText.replace(/\\n/g, '\n');
+  const lyricsPreview = processedLyrics.length > 300 ? processedLyrics.substring(0, 300) + '...' : processedLyrics;
 
   // Create popup content with enhanced styling
   const popupContent = `
