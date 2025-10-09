@@ -5,7 +5,7 @@ import { fetchMusicData } from '../../services/dataService';
 
 const FilterControls = () => {
   const { filters, setFilters } = useMap();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [filterOptions, setFilterOptions] = useState({
     artists: [],
     districts: [],
@@ -18,11 +18,15 @@ const FilterControls = () => {
       try {
         const data = await fetchMusicData();
 
-        // Extract unique artists using Singer (Chinese names)
-        const artists = [...new Set(data.map(item => item.Singer).filter(Boolean))].sort();
+        // Extract unique artists using appropriate language version
+        const artists = [...new Set(data.map(item => {
+          return language === 'zh' ? item.Singer : (item.singer_en || item.Singer);
+        }).filter(Boolean))].sort();
 
-        // Extract unique districts (using location_name_en as district)
-        const districts = [...new Set(data.map(item => item.location_name_en).filter(Boolean))].sort();
+        // Extract unique districts using appropriate language version
+        const districts = [...new Set(data.map(item => {
+          return language === 'zh' ? item.location_name : (item.location_name_en || item.location_name);
+        }).filter(Boolean))].sort();
 
         // Extract decades from years
         const decades = [...new Set(data.map(item => {
@@ -46,7 +50,7 @@ const FilterControls = () => {
     };
 
     loadFilterOptions();
-  }, []);
+  }, [language]);
 
   const handleFilterChange = (filterType, value) => {
     setFilters({ ...filters, [filterType]: value });

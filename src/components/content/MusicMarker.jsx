@@ -83,6 +83,10 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
   // Artist - use Chinese or English based on language
   const artistName = isChinese ? (data.Singer || 'Unknown Artist') : (data.singer_en || data.Singer || 'Unknown Artist');
   
+  // For YouTube search, always use Chinese song title + artist name
+  const chineseSongTitle = data.song || 'Unknown Song';
+  const chineseArtistName = data.Singer || 'Unknown Artist';
+  
   // Location - use Chinese or English based on language
   const locationName = isChinese ? (data.location_name || 'Unknown Location') : (data.location_name_en || data.location_name || 'Unknown Location');
   
@@ -91,14 +95,14 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
   
   // Lyrics - use Chinese or English based on language
   const lyricsText = isChinese ? (data.lyrics || 'No lyrics available') : (data.lyrics_en || data.lyrics || 'No lyrics available');
-  const lyricsPreview = lyricsText.length > 100 ? lyricsText.substring(0, 100) + '...' : lyricsText;
+  const lyricsPreview = lyricsText.length > 300 ? lyricsText.substring(0, 300) + '...' : lyricsText;
 
   // Create popup content with enhanced styling
   const popupContent = `
     <div class="marker-popup">
       <div class="popup-header">
         <div class="popup-title">
-          <h2><a href="#/explore?search=${encodeURIComponent(songTitle)}" class="song-link" title="Click to view full song details" style="color: white">${songTitle}</a></h2>
+          <h4><a href="#/explore?search=${encodeURIComponent(songTitle)}" class="song-link" title="Click to view full song details" style="color: white">${songTitle}</a></h4>
           <span class="popup-subtitle">
             <a href="#/explore?search=${encodeURIComponent(artistName)}" class="artist-link" title="Click to search artist">
               ${artistName}
@@ -117,20 +121,6 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
 
         <div class="info-row">
           <div class="info-text">
-            <span class="info-label">${t('song.year', 'Year')}</span>
-            <span class="info-value">${data.year || t('song.unknown', 'Unknown')}</span>
-          </div>
-        </div>
-
-        <div class="info-row">
-          <div class="info-text">
-            <span class="info-label">${t('song.album', 'Album')}</span>
-            <span class="info-value">${albumName}</span>
-          </div>
-        </div>
-
-        <div class="info-row">
-          <div class="info-text">
             <span class="info-label">${t('song.lyrics', 'Lyrics')}</span>
             <span class="info-value">${lyricsPreview}</span>
           </div>
@@ -138,7 +128,7 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
 
         <div class="popup-actions">
           <a href="javascript:void(0)" 
-             onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent(`${songTitle} ${artistName}`)}', '_blank')" 
+             onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent(`${chineseSongTitle} ${chineseArtistName}`)}', '_blank')" 
              class="youtube-btn" 
              title="${t('song.listenYouTube', 'Listen on YouTube')}"
              style="color: #000000; background-color: #ffffff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block; font-weight: bold;">

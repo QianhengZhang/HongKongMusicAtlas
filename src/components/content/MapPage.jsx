@@ -4,7 +4,7 @@ import FilterControls from './FilterControls';
 import InformationCard from './InformationCard';
 
 function MapPage() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);

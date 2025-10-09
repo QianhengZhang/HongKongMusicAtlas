@@ -413,16 +413,21 @@
   z-index: 9999 !important;
   position: relative;
   padding: 0;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   backdrop-filter: blur(10px);
   animation: popupFadeIn 0.3s ease-out;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: auto;
-  max-width: none;
-  display: inline-block; /* shrink-to-fit to content; removes right white space */
+  width: 350px; /* doubled width for web */
+  max-width: 95vw; /* responsive on smaller screens */
+  display: inline-block;
+}
+
+/* Hide Mapbox popup tip (pointing arrow) */
+.music-popup .mapboxgl-popup-tip {
+  display: none !important;
 }
 
 .music-popup .mapboxgl-popup-content:hover {
@@ -532,6 +537,7 @@
   align-items: flex-start;
   margin-bottom: 12px;
   transition: transform 0.2s ease;
+  text-align: left;
 }
 
 .info-row:last-child {
@@ -859,10 +865,11 @@
   backdrop-filter: blur(12px);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  width: 1520px; /* doubled content width */
-  max-width: 95vw; /* keep responsive within viewport */
+  width: 100%; /* fill the container completely */
+  max-width: none; /* no width restrictions */
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px 16px 16px 16px; /* ensure all corners are rounded */
 }
 
 .popup-header {
@@ -872,6 +879,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 16px 16px 0 0;
 }
 
 .popup-header h4 {
@@ -881,13 +889,14 @@
 }
 
 /* Popup title (h2) - song link size set to an h2-like scale */
-.popup-title h2,
+.popup-title h4,
 .popup-title .song-link {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 600;
   color: white;
   text-decoration: none;
   line-height: 1.2;
+  margin: 0;
 }
 
 .close-btn {
@@ -906,6 +915,7 @@
 
 .popup-content {
   padding: clamp(0.75rem, 2vw, 1rem);
+  border-radius: 0 0 16px 16px;
 }
 
 .song-info p {
@@ -938,6 +948,11 @@
   text-decoration: none;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Center YouTube button */
+.popup-actions {
+  text-align: center;
 }
 
 /* Audio Preview Styles */
@@ -1066,8 +1081,8 @@
   }
 
   .song-popup {
-    width: 95vw;
-    max-width: 600px;
+    width: 100%; /* fill container */
+    max-width: none; /* no restrictions */
   }
 
   .marker-popup {
@@ -1147,8 +1162,8 @@
   }
 
   .song-popup {
-    width: 98vw;
-    max-width: 500px;
+    width: 100%; /* fill container */
+    max-width: none; /* no restrictions */
   }
 
   .popup-header,
