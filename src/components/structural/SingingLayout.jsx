@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link, Outlet, useLocation } from 'react-router';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 function SingingLayout() {
   const location = useLocation();
@@ -24,7 +24,7 @@ function SingingLayout() {
         <Container>
           <Navbar.Brand as={Link} to="/" className="nav-brand">
             <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: 'white' }}>
-              <span role="img" aria-label="Music note">🎵</span> Hong Kong Music Atlas
+Hong Kong Music Atlas
             </h1>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MusicMarker from './MusicMarker';
 import { fetchMusicData, parseLocation } from '../../services/dataService';
-import { useMap } from '../../contexts';
+import { useMap, useLanguage } from '../../contexts';
 
 const Map = () => {
   const mapRef = useRef(null);
@@ -12,6 +12,7 @@ const Map = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [mapboxToken, setMapboxToken] = useState(null);
   const { filters } = useMap();
+  const languageContext = useLanguage();
 
   // Get Mapbox token
   const fetchMapboxToken = async () => {
@@ -53,7 +54,7 @@ const Map = () => {
 
       // Create a marker for each music data entry
       const newMarkers = musicData.map(data => {
-        return MusicMarker.addToMap(data, mapInstanceRef.current, parseLocation);
+        return MusicMarker.addToMap(data, mapInstanceRef.current, parseLocation, languageContext);
       }).filter(marker => marker !== null); // Filter out invalid markers
 
       setMusicMarkers(newMarkers);
@@ -102,7 +103,7 @@ const Map = () => {
 
       // Create filtered markers
       const newMarkers = filteredData.map(data => {
-        return MusicMarker.addToMap(data, mapInstanceRef.current, parseLocation);
+        return MusicMarker.addToMap(data, mapInstanceRef.current, parseLocation, languageContext);
       }).filter(marker => marker !== null);
 
       setMusicMarkers(newMarkers);
@@ -132,6 +133,13 @@ const Map = () => {
       updateMarkersWithFilters(filters);
     }
   }, [filters]);
+
+  // Listen for language changes
+  useEffect(() => {
+    if (mapInstanceRef.current) {
+      updateMarkersWithFilters(filters);
+    }
+  }, [languageContext.language]);
 
   useEffect(() => {
     const initializeMap = async () => {

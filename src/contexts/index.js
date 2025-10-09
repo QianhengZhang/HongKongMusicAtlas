@@ -2,3 +2,4 @@
 export { MapProvider, useMap } from './MapContext';
 export { AudioProvider, useAudio } from './AudioContext';
 export { AppProvider, useApp } from './AppContext';
+export { LanguageProvider, useLanguage } from './LanguageContext';

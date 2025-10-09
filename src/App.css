@@ -39,6 +39,12 @@
   gap: 2rem;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .nav-link {
   background: none;
   border: none;
@@ -917,6 +923,10 @@
   .nav-links {
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-actions {
     justify-content: center;
   }
 

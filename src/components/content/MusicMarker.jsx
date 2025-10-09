@@ -1,5 +1,6 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
+import { useLanguage } from '../../contexts';
 
 
 
@@ -47,7 +48,7 @@ const MusicMarker = ({ data, map }) => {
 };
 
 // Static method to add marker to map
-MusicMarker.addToMap = (data, map, parseLocation) => {
+MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
   if (!data || !map) return null;
 
   const coordinates = parseLocation(data.location_x, data.location_y);
@@ -65,60 +66,83 @@ MusicMarker.addToMap = (data, map, parseLocation) => {
   `;
   markerEl.style.cursor = 'pointer';
 
+  // Helper function to get translation
+  const t = (key, fallback) => {
+    if (languageContext && languageContext.t) {
+      return languageContext.t(key, fallback);
+    }
+    return fallback || key;
+  };
+
+  // Get language-specific content
+  const isChinese = languageContext && languageContext.language === 'zh';
+  
+  // Song title - use Chinese or English based on language
+  const songTitle = isChinese ? (data.song || 'Unknown Song') : (data.song_en || data.song || 'Unknown Song');
+  
+  // Artist - use Chinese or English based on language
+  const artistName = isChinese ? (data.Singer || 'Unknown Artist') : (data.singer_en || data.Singer || 'Unknown Artist');
+  
+  // Location - use Chinese or English based on language
+  const locationName = isChinese ? (data.location_name || 'Unknown Location') : (data.location_name_en || data.location_name || 'Unknown Location');
+  
+  // Album - use appropriate language version
+  const albumName = data.album || 'Unknown Album';
+  
+  // Lyrics - use Chinese or English based on language
+  const lyricsText = isChinese ? (data.lyrics || 'No lyrics available') : (data.lyrics_en || data.lyrics || 'No lyrics available');
+  const lyricsPreview = lyricsText.length > 100 ? lyricsText.substring(0, 100) + '...' : lyricsText;
+
   // Create popup content with enhanced styling
   const popupContent = `
     <div class="marker-popup">
       <div class="popup-header">
         <div class="popup-title">
-          <h2><a href="#/explore?search=${encodeURIComponent(data.song)}" class="song-link" title="Click to view full song details" style="color: white">${data.song || 'Unknown Song'}</a></h2>
+          <h2><a href="#/explore?search=${encodeURIComponent(songTitle)}" class="song-link" title="Click to view full song details" style="color: white">${songTitle}</a></h2>
           <span class="popup-subtitle">
-            <a href="#/explore?search=${encodeURIComponent(data.Singer)}" class="artist-link" title="Click to search artist">
-              ${data.Singer ? data.Singer.split(',').map(name => name.trim()).join(', ') : 'Unknown Artist'}
+            <a href="#/explore?search=${encodeURIComponent(artistName)}" class="artist-link" title="Click to search artist">
+              ${artistName}
             </a>
-            ${data.singer_en && data.singer_en !== data.Singer ?
-              `<small class="text-muted d-block" style="color: white">${data.singer_en}</small>` : ''}
           </span>
         </div>
       </div>
 
       <div class="popup-content">
-                <div class="info-row">
+        <div class="info-row">
           <div class="info-text">
-            <span class="info-label"><span role="img" aria-label="Map pin">📍</span> 地点/Location</span>
-            <span class="info-value">${data.location_name || 'Unknown Location'}</span>
-            ${data.location_name_en && data.location_name_en !== data.location_name ?
-              `<small class="text-muted d-block">${data.location_name_en}</small>` : ''}
+            <span class="info-label">${t('song.location', 'Location')}</span>
+            <span class="info-value">${locationName}</span>
           </div>
         </div>
 
         <div class="info-row">
           <div class="info-text">
-            <span class="info-label"><span role="img" aria-label="Calendar">📅</span> 年份/Year</span>
-            <span class="info-value">${data.year || 'Unknown Year'}</span>
+            <span class="info-label">${t('song.year', 'Year')}</span>
+            <span class="info-value">${data.year || t('song.unknown', 'Unknown')}</span>
           </div>
         </div>
 
         <div class="info-row">
           <div class="info-text">
-            <span class="info-label"><span role="img" aria-label="Compact disc">💿</span> 专辑/Album</span>
-            <span class="info-value">${data.album || 'Unknown Album'}</span>
+            <span class="info-label">${t('song.album', 'Album')}</span>
+            <span class="info-value">${albumName}</span>
           </div>
         </div>
 
         <div class="info-row">
           <div class="info-text">
-            <span class="info-label"><span role="img" aria-label="Scroll">📜</span> 歌词预览/Lyrics Preview</span>
-            <span class="info-value">${data.lyrics ? data.lyrics.substring(0, 100) + '...' : 'No lyrics available'}</span>
+            <span class="info-label">${t('song.lyrics', 'Lyrics')}</span>
+            <span class="info-value">${lyricsPreview}</span>
           </div>
         </div>
 
         <div class="popup-actions">
           <a href="javascript:void(0)" 
-             onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent(`${data.song} ${data.Singer}`)}', '_blank')" 
+             onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent(`${songTitle} ${artistName}`)}', '_blank')" 
              class="youtube-btn" 
-             title="Listen on YouTube"
+             title="${t('song.listenYouTube', 'Listen on YouTube')}"
              style="color: #000000; background-color: #ffffff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block; font-weight: bold;">
-             🎵 Listen on YouTube
+             ${t('song.listenYouTube', 'Listen on YouTube')}
           </a>
         </div>
       </div>

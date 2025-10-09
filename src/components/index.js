@@ -10,3 +10,4 @@ export { default as MusicMarker } from './content/MusicMarker';
 export { default as LandingPage } from './content/LandingPage';
 export { default as AboutPage } from './content/AboutPage';
 export { default as ExploreMusics } from './content/ExploreMusics';
+export { default as LanguageSwitcher } from './LanguageSwitcher';

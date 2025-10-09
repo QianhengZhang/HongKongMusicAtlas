@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
-import { HashRouter, Routes, Route } from 'react-router'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
-import { useApp } from './contexts'
+import { useApp, useLanguage } from './contexts'
+import { translations } from './translations'
 import {
   Layout,
   LandingPage,
@@ -13,9 +14,22 @@ import {
   InformationCard,
   ExploreMusics
 } from './components'
+import LanguageSwitcher from './components/LanguageSwitcher'
 
 function App() {
   const { setCurrentPage } = useApp()
+  const { setTranslations, t } = useLanguage()
+
+  // Initialize translations
+  useEffect(() => {
+    setTranslations(translations)
+    
+    // Load saved language preference
+    const savedLanguage = localStorage.getItem('preferred-language')
+    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'zh')) {
+      // Language will be set by the context
+    }
+  }, [setTranslations])
 
   const handleGetStarted = () => {
     setCurrentPage('map')
@@ -28,14 +42,17 @@ function App() {
         <nav className="app-header">
           <div className="main-navigation">
             <div className="nav-brand">
-              <h1><span role="img" aria-label="Music note">🎵</span> Hong Kong Music Atlas</h1>
+                      <h1>{t('landing.title', 'Hong Kong Music Atlas')}</h1>
             </div>
             <ul className="nav-links">
-              <li><a href="#/" className="nav-link">Home</a></li>
-              <li><a href="#/map" className="nav-link">Map</a></li>
-              <li><a href="#/explore" className="nav-link">Explore Music</a></li>
-              <li><a href="#/about" className="nav-link">About</a></li>
+              <li><a href="#/" className="nav-link">{t('nav.home', 'Home')}</a></li>
+              <li><a href="#/map" className="nav-link">{t('nav.map', 'Map')}</a></li>
+              <li><a href="#/explore" className="nav-link">{t('nav.explore', 'Explore Music')}</a></li>
+              <li><a href="#/about" className="nav-link">{t('nav.about', 'About')}</a></li>
             </ul>
+            <div className="nav-actions">
+              <LanguageSwitcher />
+            </div>
           </div>
         </nav>
 
@@ -65,7 +82,7 @@ function App() {
 
         {/* Footer */}
         <footer className="app-footer">
-          <p>&copy; 2025 Hong Kong Music Atlas. Exploring Hong Kong's musical geography.</p>
+          <p>{t('footer.copyright', '© 2025 Hong Kong Music Atlas. Exploring Hong Kong\'s musical geography.')}</p>
         </footer>
       </div>
     </HashRouter>

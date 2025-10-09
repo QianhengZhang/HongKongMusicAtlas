@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container, Row, Col, Button, Card, Image} from 'react-bootstrap';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../../contexts';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const handleGetStarted = () => {
     navigate('/map');
@@ -14,15 +16,12 @@ const LandingPage = () => {
       <Row className="justify-content-center">
         <Col lg={10}>
           <div className="text-center mb-5">
-            <h1 className="display-4 mb-3" style={{ color: '#333' }}>Hong Kong Music Atlas</h1>
+            <h1 className="display-4 mb-3" style={{ color: '#333' }}>{t('landing.title', 'Hong Kong Music Atlas')}</h1>
             <p className="lead mb-4" style={{ color: '#666' }}>
-              Explore Hong Kong's cultural geography through Cantonese pop music
+              {t('landing.subtitle', 'Explore Hong Kong\'s cultural geography through Cantonese pop music')}
             </p>
             <p className="mb-4" style={{ color: '#555' }}>
-              Discover how Canto-pop songs reference specific neighborhoods, landmarks,
-              and streets across Hong Kong. Each pin on the map represents a lyrical
-              reference, creating a dynamic storytelling experience of the city's
-              musical landscape.
+              {t('landing.description', 'Discover how Canto-pop songs reference specific neighborhoods, landmarks, and streets across Hong Kong. Each pin on the map represents a lyrical reference, creating a dynamic storytelling experience of the city\'s musical landscape.')}
             </p>
             <Button
               variant="primary"
@@ -30,23 +29,23 @@ const LandingPage = () => {
               onClick={handleGetStarted}
               className="px-4 py-2"
             >
-              Start Exploring
+              {t('landing.getStarted', 'Start Exploring')}
             </Button>
           </div>
           <Image src="/HongKongMusicAtlas/images/hongkongNight.jpg" style={{borderRadius: '10px'}} alt="HongKong View" className="img-fluid" />
           <div className="text-center mt-3">
-            <p className="text-muted">Photo from internet</p>
+            <p className="text-muted">{t('landing.photoCredit', 'Photo from internet')}</p>
           </div>
           <div className="mt-5">
-            <h2 className="text-center mb-4" style={{ color: '#333' }}>What You'll Discover</h2>
+            <h2 className="text-center mb-4" style={{ color: '#333' }}>{t('landing.discoverTitle', 'What You\'ll Discover')}</h2>
             <Row>
               <Col md={4} className="mb-3">
                 <Card className="h-100 text-center">
                   <Card.Body>
                     <h3 className="h3">
-                      <span role="img" aria-label="Music note">🎵</span> Song Stories
+{t('landing.songStories', 'Song Stories')}
                     </h3>
-                    <p className="text-muted">Lyrics in Chinese with song details</p>
+                    <p className="text-muted">{t('landing.songStoriesDesc', 'Lyrics in Chinese with song details')}</p>
                   </Card.Body>
                 </Card>
               </Col>
@@ -54,9 +53,9 @@ const LandingPage = () => {
                 <Card className="h-100 text-center">
                   <Card.Body>
                     <h3 className="h3">
-                      <span role="img" aria-label="World map">🗺️</span> Interactive Map
+{t('landing.interactiveMap', 'Interactive Map')}
                     </h3>
-                    <p className="text-muted">Click pins to explore Hong Kong's musical geography</p>
+                    <p className="text-muted">{t('landing.interactiveMapDesc', 'Click pins to explore Hong Kong\'s musical geography')}</p>
                   </Card.Body>
                 </Card>
               </Col>
@@ -64,9 +63,9 @@ const LandingPage = () => {
                 <Card className="h-100 text-center">
                   <Card.Body>
                     <h3 className="h3">
-                      <span role="img" aria-label="Book">📖</span> Cultural Context
+                      <span role="img" aria-label="Book">📖</span> {t('landing.culturalContext', 'Cultural Context')}
                     </h3>
-                    <p className="text-muted">Historical notes about each location's significance</p>
+                    <p className="text-muted">{t('landing.culturalContextDesc', 'Historical notes about each location\'s significance')}</p>
                   </Card.Body>
                 </Card>
               </Col>

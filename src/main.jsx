@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { AppProvider, MapProvider, AudioProvider } from './contexts';
+import { AppProvider, MapProvider, AudioProvider, LanguageProvider } from './contexts';
 import App from './App.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,7 +13,9 @@ root.render(
   <AppProvider>
     <MapProvider>
       <AudioProvider>
-        <App />
+        <LanguageProvider>
+          <App />
+        </LanguageProvider>
       </AudioProvider>
     </MapProvider>
   </AppProvider>

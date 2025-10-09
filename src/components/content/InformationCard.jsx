@@ -57,7 +57,7 @@ const InformationCard = () => {
     <Card>
       <Card.Header>
         <h2 className="mb-0">
-          <span role="img" aria-label="Music note">🎵</span> Music Locations
+Music Locations
         </h2>
       </Card.Header>
       <Card.Body>
@@ -73,20 +73,20 @@ const InformationCard = () => {
           )}
         </p>
         <p className="mb-2">
-          <span role="img" aria-label="Map pin">📍</span> Click on markers to explore songs and locations
+Click on markers to explore songs and locations
         </p>
         <p className="mb-3">
-          <span role="img" aria-label="Microphone">🎤</span> Use filters to discover songs by artist, location, or decade
+Use filters to discover songs by artist, location, or decade
         </p>
 
         {hasActiveFilters && (
           <Alert variant="info" className="mb-3">
-            <em>💡 Use filters above to narrow down your search</em>
+            <em>Use filters above to narrow down your search</em>
           </Alert>
         )}
 
         <Alert variant="primary">
-          <strong>💡 Tip:</strong> Each marker shows lyrics preview and links to listen on YouTube
+          <strong>Tip:</strong> Each marker shows lyrics preview and links to listen on YouTube
         </Alert>
       </Card.Body>
     </Card>

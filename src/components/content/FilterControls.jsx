@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Form, Button, Badge } from 'react-bootstrap';
-import { useMap } from '../../contexts';
+import { useMap, useLanguage } from '../../contexts';
 import { fetchMusicData } from '../../services/dataService';
 
 const FilterControls = () => {
   const { filters, setFilters } = useMap();
+  const { t } = useLanguage();
   const [filterOptions, setFilterOptions] = useState({
     artists: [],
     districts: [],
@@ -65,16 +66,16 @@ const FilterControls = () => {
     <Card className="mb-3">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h2 className="mb-0">
-          <span role="img" aria-label="Music note">🎵</span> Filter Songs
+{t('filter.title', 'Filter Songs')}
         </h2>
         {hasActiveFilters && (
           <Button
             variant="outline-danger"
             size="sm"
             onClick={clearAllFilters}
-            title="Clear all filters"
+            title={t('filter.clearAll', 'Clear all filters')}
           >
-            ✕ Clear All
+            ✕ {t('filter.clearAll', 'Clear All')}
           </Button>
         )}
       </Card.Header>
@@ -82,16 +83,16 @@ const FilterControls = () => {
         <Form>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="artist-select">
-              <span role="img" aria-label="Microphone">🎤</span> Artist
+{t('filter.artist', 'Artist')}
             </Form.Label>
             <Form.Select
               id="artist-select"
-              aria-label="Filter by artist"
+              aria-label={t('filter.artist', 'Filter by artist')}
               value={filters?.artist || ''}
               onChange={(e) => handleFilterChange('artist', e.target.value)}
-              title="Filter by artist"
+              title={t('filter.artist', 'Filter by artist')}
             >
-              <option value="">All Artists</option>
+              <option value="">{t('filter.artistAll', 'All Artists')}</option>
               {filterOptions.artists.map(artist => (
                 <option key={artist} value={artist}>{artist}</option>
               ))}
@@ -100,16 +101,16 @@ const FilterControls = () => {
 
           <Form.Group className="mb-3">
             <Form.Label htmlFor="location-select">
-              <span role="img" aria-label="Map pin">📍</span> Location
+{t('filter.location', 'Location')}
             </Form.Label>
             <Form.Select
               id="location-select"
-              aria-label="Filter by location"
+              aria-label={t('filter.location', 'Filter by location')}
               value={filters?.district || ''}
               onChange={(e) => handleFilterChange('district', e.target.value)}
-              title="Filter by location"
+              title={t('filter.location', 'Filter by location')}
             >
-              <option value="">All Locations</option>
+              <option value="">{t('filter.locationAll', 'All Locations')}</option>
               {filterOptions.districts.map(district => (
                 <option key={district} value={district}>{district}</option>
               ))}
@@ -118,16 +119,16 @@ const FilterControls = () => {
 
           <Form.Group className="mb-3">
             <Form.Label htmlFor="decade-select">
-              <span role="img" aria-label="Calendar">📅</span> Decade
+{t('filter.decade', 'Decade')}
             </Form.Label>
             <Form.Select
               id="decade-select"
-              aria-label="Filter by decade"
+              aria-label={t('filter.decade', 'Filter by decade')}
               value={filters?.decade || ''}
               onChange={(e) => handleFilterChange('decade', e.target.value)}
-              title="Filter by decade"
+              title={t('filter.decade', 'Filter by decade')}
             >
-              <option value="">All Decades</option>
+              <option value="">{t('filter.decadeAll', 'All Decades')}</option>
               {filterOptions.decades.map(decade => (
                 <option key={decade} value={decade}>{decade}</option>
               ))}
@@ -137,11 +138,11 @@ const FilterControls = () => {
 
         {hasActiveFilters && (
           <div className="mt-3">
-            <h6>Active Filters:</h6>
+            <h6>{t('filter.activeFilters', 'Active Filters:')}</h6>
             <div className="d-flex flex-wrap gap-2">
               {filters.artist && (
                 <Badge bg="primary" className="d-flex align-items-center gap-1">
-                  Artist: {filters.artist}
+                  {t('filter.artist', 'Artist')}: {filters.artist}
                   <Button
                     variant="link"
                     size="sm"
@@ -154,7 +155,7 @@ const FilterControls = () => {
               )}
               {filters.district && (
                 <Badge bg="info" className="d-flex align-items-center gap-1">
-                  Location: {filters.district}
+                  {t('filter.location', 'Location')}: {filters.district}
                   <Button
                     variant="link"
                     size="sm"
@@ -167,7 +168,7 @@ const FilterControls = () => {
               )}
               {filters.decade && (
                 <Badge bg="success" className="d-flex align-items-center gap-1">
-                  Decade: {filters.decade}
+                  {t('filter.decade', 'Decade')}: {filters.decade}
                   <Button
                     variant="link"
                     size="sm"

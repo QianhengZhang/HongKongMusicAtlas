@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button, Card, Badge } from 'react-bootstrap';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
+import { useLanguage } from '../../contexts';
 import { fetchMusicData } from '../../services/dataService';
 
 // Helper function to format artist/songwriter names with proper line breaks
@@ -30,6 +31,7 @@ const formatNames = (names, isEnglish = false) => {
 
 const ExploreMusics = () => {
   const location = useLocation();
+  const { t, language } = useLanguage();
   const [allSongs, setAllSongs] = useState([]);
   const [filteredSongs, setFilteredSongs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -122,9 +124,9 @@ const ExploreMusics = () => {
       <Container className="mt-4">
         <div className="text-center">
           <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span className="visually-hidden">{t('explore.loading', 'Loading...')}</span>
           </div>
-          <p className="mt-2">Loading music data...</p>
+          <p className="mt-2">{t('explore.loading', 'Loading music data...')}</p>
         </div>
       </Container>
     );
@@ -135,8 +137,8 @@ const ExploreMusics = () => {
       <Row>
         <Col>
           <div className="explore-header mb-4">
-            <h1 className="display-4">🎵 Explore Hong Kong Music</h1>
-            <p className="lead">Discover the complete information about songs and their connections to Hong Kong locations</p>
+            <h1 className="display-4">{t('explore.title', 'Explore Hong Kong Music')}</h1>
+            <p className="lead">{t('explore.subtitle', 'Discover the complete information about songs and their connections to Hong Kong locations')}</p>
           </div>
 
           {/* Search Section */}
@@ -145,13 +147,13 @@ const ExploreMusics = () => {
               <InputGroup size="lg">
                 <Form.Control
                   type="text"
-                  aria-label="Search songs"
-                  placeholder="Search by song title, artist, location, lyrics, album, or songwriter..."
+                  aria-label={t('explore.search', 'Search songs')}
+                  placeholder={t('explore.searchPlaceholder', 'Search by song title, artist, location, lyrics, album, or songwriter...')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <Button variant="primary" type="submit">
-                  🔍 Search
+                  🔍 {t('explore.search', 'Search')}
                 </Button>
               </InputGroup>
             </Form>
@@ -165,22 +167,22 @@ const ExploreMusics = () => {
                   onClick={() => setGroupBySong(!groupBySong)}
                   className="me-2"
                 >
-                  {groupBySong ? "📋 List View" : "📋 Group View"}
+                  {groupBySong ? t('explore.listView', 'List View') : t('explore.groupView', 'Group View')}
                 </Button>
                 {filteredSongs.some(song => song.totalVersions > 1) && (
                   <small className="text-muted">
-                    💡 Tip: Use Group View to better view multi-version songs
+                    {t('explore.tip', 'Tip: Use Group View to better view multi-version songs')}
                   </small>
                 )}
               </div>
             </div>
             <div className="mt-2">
               <small className="text-muted">
-                Found {filteredSongs.length} song{filteredSongs.length !== 1 ? 's' : ''}
-                {searchTerm && ` matching "${searchTerm}"`}
+                {t('explore.found', 'Found {count} song{s}', { count: filteredSongs.length, s: filteredSongs.length !== 1 ? 's' : '' })}
+                {searchTerm && ` ${t('explore.matching', 'matching "{term}"', { term: searchTerm })}`}
                 {filteredSongs.some(song => song.totalVersions > 1) && (
                   <span className="ms-2">
-                    • {filteredSongs.filter(song => song.totalVersions > 1).length} song{filteredSongs.filter(song => song.totalVersions > 1).length !== 1 ? 's' : ''} with multiple locations
+                    • {filteredSongs.filter(song => song.totalVersions > 1).length} {t('explore.multiLocation', 'song{s} with multiple locations', { s: filteredSongs.filter(song => song.totalVersions > 1).length !== 1 ? 's' : '' })}
                   </span>
                 )}
               </small>
@@ -191,8 +193,8 @@ const ExploreMusics = () => {
           <div className="results-section">
             {filteredSongs.length === 0 && !loading && (
               <div className="text-center py-5">
-                <h3>No songs found</h3>
-                <p className="text-muted">Try adjusting your search terms or filters</p>
+                <h3>{t('explore.noSongs', 'No songs found')}</h3>
+                <p className="text-muted">{t('explore.noSongsDesc', 'Try adjusting your search terms or filters')}</p>
               </div>
             )}
             {groupBySong ? (
@@ -217,7 +219,7 @@ const ExploreMusics = () => {
                         {hasMultipleVersions && (
                           <div className="group-header mb-3">
                             <h4 className="group-title">
-                              <span role="img" aria-label="Map pin">📍</span> Multi-location Version
+Multi-location Version
                               <Badge bg="info" className="ms-2">{songs.length} versions</Badge>
                             </h4>
                           </div>
@@ -243,7 +245,7 @@ const ExploreMusics = () => {
                                       <Badge bg="primary">{song.year || 'Unknown Year'}</Badge>
                                       {hasMultipleVersions && (
                                         <Badge bg="warning" text="dark" className="multi-version-badge">
-                                          📍 Multi-location Version
+Multi-location Version
                                         </Badge>
                                       )}
                                     </div>
@@ -254,70 +256,66 @@ const ExploreMusics = () => {
                                   <div className="song-info-grid">
                                     <div className="info-item">
                                       <strong>
-                                        <span role="img" aria-label="Microphone">🎤</span> 歌手/Artist:
+{t('song.artist', 'Artist')}:
                                       </strong>
                                       <div className="artist-names">
-                                        {formatNames(song.Singer)}
-                                        {song.singer_en && (
-                                          <small className="text-muted d-block">
-                                            {formatNames(song.singer_en, true)}
-                                          </small>
-                                        )}
+                                        {language === 'zh' ? formatNames(song.Singer) : formatNames(song.singer_en || song.Singer)}
                                       </div>
                                     </div>
 
                                     <div className="info-item">
                                       <strong>
-                                        <span role="img" aria-label="Map pin">📍</span> 地点/Location:
+{t('song.location', 'Location')}:
                                       </strong>
                                       <div className="location-names">
-                                        <span>{song.location_name || 'Unknown'}</span>
-                                        {song.location_name_en && (
-                                          <small className="text-muted d-block">
-                                            {song.location_name_en}
-                                          </small>
-                                        )}
+                                        <span>{language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}</span>
                                       </div>
                                     </div>
 
                                     <div className="info-item">
                                       <strong>
-                                        <span role="img" aria-label="World map">🗺️</span> 坐标/Coordinates:
+{t('song.coordinates', 'Coordinates')}:
                                       </strong>
                                       <span>{song.location_x}, {song.location_y}</span>
                                     </div>
 
                                     <div className="info-item">
                                       <strong>
-                                        <span role="img" aria-label="Compact disc">💿</span> 专辑/Album:
+{t('song.album', 'Album')}:
                                       </strong>
-                                      <span>{song.album || 'Unknown'}</span>
+                                      <span>{song.album || t('song.unknown', 'Unknown')}</span>
                                     </div>
 
                                     <div className="info-item">
-                                      <strong>✍️ 作词人/Songwriter:</strong>
+                                      <strong>{t('song.songwriter', 'Songwriter')}:</strong>
                                       <div className="songwriter-names">
-                                        {formatNames(song.songwriter) || <span>Unknown</span>}
+                                        {language === 'zh' ? (formatNames(song.songwriter) || <span>{t('song.unknown', 'Unknown')}</span>) : (formatNames(song.song_writer_en) || formatNames(song.songwriter) || <span>{t('song.unknown', 'Unknown')}</span>)}
                                       </div>
                                     </div>
                                   </div>
 
                                   {/* Lyrics Section - Moved to prominent position */}
-                                  {song.lyrics && (
+                                  {(song.lyrics || song.lyrics_en) && (
                                     <div className="lyrics-section mt-3">
                                       <div className="lyrics-header">
-                                        <strong>💭 歌词/Lyrics</strong>
+                                        <strong>{t('song.lyrics', 'Lyrics')}</strong>
                                       </div>
                                       <div className="lyrics-content">
-                                        {song.lyrics.length > 200
-                                          ? `${song.lyrics.substring(0, 200)}...`
-                                          : song.lyrics}
+                                        {(() => {
+                                          const lyricsText = language === 'zh' ? (song.lyrics || song.lyrics_en) : (song.lyrics_en || song.lyrics);
+                                          return lyricsText && lyricsText.length > 200
+                                            ? `${lyricsText.substring(0, 200)}...`
+                                            : lyricsText;
+                                        })()}
                                       </div>
-                                      {song.lyrics.length > 200 && (
-                                        <div className="lyrics-expand">
-                                          <small className="text-primary">点击展开完整歌词</small>
-                                        </div>
-                                      )}
+                                      {(() => {
+                                        const lyricsText = language === 'zh' ? (song.lyrics || song.lyrics_en) : (song.lyrics_en || song.lyrics);
+                                        return lyricsText && lyricsText.length > 200 && (
+                                          <div className="lyrics-expand">
+                                            <small className="text-primary">{t('song.expandLyrics', 'Click to expand full lyrics')}</small>
+                                          </div>
+                                        );
+                                      })()}
                                     </div>
                                   )}
                                 </Card.Body>
@@ -328,11 +326,11 @@ const ExploreMusics = () => {
                                       variant="outline-primary"
                                       size="sm"
                                       onClick={() => {
-                                        const searchQuery = encodeURIComponent(`${song.song} ${song.Singer}`);
+                                        const searchQuery = encodeURIComponent(`${language === 'zh' ? song.song : (song.song_en || song.song)} ${language === 'zh' ? song.Singer : (song.singer_en || song.Singer)}`);
                                         window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
                                       }}
                                     >
-                                      🎵 Listen on YouTube
+{t('song.listenYouTube', 'Listen on YouTube')}
                                     </Button>
                                     <Button
                                       variant="outline-secondary"
@@ -342,7 +340,7 @@ const ExploreMusics = () => {
                                         window.location.hash = `/map?lat=${song.location_y}&lng=${song.location_x}`;
                                       }}
                                     >
-                                      🗺️ View on Map
+{t('song.viewMap', 'View on Map')}
                                     </Button>
                                   </div>
                                 </Card.Footer>
@@ -364,8 +362,8 @@ const ExploreMusics = () => {
                       <Card.Header className="song-card-header">
                         <div className="d-flex justify-content-between align-items-start">
                           <div>
-                            <h2 className="mb-1">{song.song || 'Unknown Song'}</h2>
-                            <p className="mb-0 text-muted">{song.Singer || 'Unknown Artist'}</p>
+                            <h2 className="mb-1">{language === 'zh' ? (song.song || t('song.unknown', 'Unknown Song')) : (song.song_en || song.song || t('song.unknown', 'Unknown Song'))}</h2>
+                            <p className="mb-0 text-muted">{language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown Artist')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown Artist'))}</p>
                             {song.totalVersions && song.totalVersions > 1 && (
                               <div className="version-indicator">
                                 <Badge bg="info" className="version-badge">
@@ -375,10 +373,10 @@ const ExploreMusics = () => {
                             )}
                           </div>
                           <div className="d-flex flex-column align-items-end gap-1">
-                            <Badge bg="primary">{song.year || 'Unknown Year'}</Badge>
+                            <Badge bg="primary">{song.year || t('song.unknown', 'Unknown')}</Badge>
                             {song.totalVersions && song.totalVersions > 1 && (
                               <Badge bg="warning" text="dark" className="multi-version-badge">
-                                📍 Multi-location Version
+{t('song.multiLocation', 'Multi-location Version')}
                               </Badge>
                             )}
                           </div>
@@ -389,70 +387,66 @@ const ExploreMusics = () => {
                         <div className="song-info-grid">
                           <div className="info-item">
                             <strong>
-                              <span role="img" aria-label="Microphone">🎤</span> 歌手/Artist:
+{t('song.artist', 'Artist')}:
                             </strong>
                             <div className="artist-names">
-                              {formatNames(song.Singer)}
-                              {song.singer_en && (
-                                <small className="text-muted d-block">
-                                  {formatNames(song.singer_en, true)}
-                                </small>
-                              )}
+                              {language === 'zh' ? formatNames(song.Singer) : formatNames(song.singer_en || song.Singer)}
                             </div>
                           </div>
 
                           <div className="info-item">
                             <strong>
-                              <span role="img" aria-label="Map pin">📍</span> 地点/Location:
+{t('song.location', 'Location')}:
                             </strong>
                             <div className="location-names">
-                              <span>{song.location_name || 'Unknown'}</span>
-                              {song.location_name_en && (
-                                <small className="text-muted d-block">
-                                  {song.location_name_en}
-                                </small>
-                              )}
+                              <span>{language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}</span>
                             </div>
                           </div>
 
                           <div className="info-item">
                             <strong>
-                              <span role="img" aria-label="World map">🗺️</span> 坐标/Coordinates:
+{t('song.coordinates', 'Coordinates')}:
                             </strong>
                             <span>{song.location_x}, {song.location_y}</span>
                           </div>
 
                           <div className="info-item">
                             <strong>
-                              <span role="img" aria-label="Compact disc">💿</span> 专辑/Album:
+{t('song.album', 'Album')}:
                             </strong>
-                            <span>{song.album || 'Unknown'}</span>
+                            <span>{song.album || t('song.unknown', 'Unknown')}</span>
                           </div>
 
                           <div className="info-item">
-                            <strong>✍️ 作词人/Songwriter:</strong>
+                            <strong>{t('song.songwriter', 'Songwriter')}:</strong>
                             <div className="songwriter-names">
-                              {formatNames(song.songwriter) || <span>Unknown</span>}
+                              {language === 'zh' ? (formatNames(song.songwriter) || <span>{t('song.unknown', 'Unknown')}</span>) : (formatNames(song.song_writer_en) || formatNames(song.songwriter) || <span>{t('song.unknown', 'Unknown')}</span>)}
                             </div>
                           </div>
                         </div>
 
                         {/* Lyrics Section - Moved to prominent position */}
-                        {song.lyrics && (
+                        {(song.lyrics || song.lyrics_en) && (
                           <div className="lyrics-section mt-3">
                             <div className="lyrics-header">
-                              <strong>💭 歌词/Lyrics</strong>
+                              <strong>{t('song.lyrics', 'Lyrics')}</strong>
                             </div>
                             <div className="lyrics-content">
-                              {song.lyrics.length > 200
-                                ? `${song.lyrics.substring(0, 200)}...`
-                                : song.lyrics}
+                              {(() => {
+                                const lyricsText = language === 'zh' ? (song.lyrics || song.lyrics_en) : (song.lyrics_en || song.lyrics);
+                                return lyricsText && lyricsText.length > 200
+                                  ? `${lyricsText.substring(0, 200)}...`
+                                  : lyricsText;
+                              })()}
                             </div>
-                            {song.lyrics.length > 200 && (
-                              <div className="lyrics-expand">
-                                <small className="text-primary">Click to expand full lyrics</small>
-                              </div>
-                            )}
+                            {(() => {
+                              const lyricsText = language === 'zh' ? (song.lyrics || song.lyrics_en) : (song.lyrics_en || song.lyrics);
+                              return lyricsText && lyricsText.length > 200 && (
+                                <div className="lyrics-expand">
+                                  <small className="text-primary">{t('song.expandLyrics', 'Click to expand full lyrics')}</small>
+                                </div>
+                              );
+                            })()}
                           </div>
                         )}
                       </Card.Body>
@@ -463,11 +457,11 @@ const ExploreMusics = () => {
                             variant="outline-primary"
                             size="sm"
                             onClick={() => {
-                              const searchQuery = encodeURIComponent(`${song.song} ${song.Singer}`);
+                              const searchQuery = encodeURIComponent(`${language === 'zh' ? song.song : (song.song_en || song.song)} ${language === 'zh' ? song.Singer : (song.singer_en || song.Singer)}`);
                               window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
                             }}
                           >
-                            🎵 Listen on YouTube
+{t('song.listenYouTube', 'Listen on YouTube')}
                           </Button>
                           <Button
                             variant="outline-secondary"
@@ -477,7 +471,7 @@ const ExploreMusics = () => {
                               window.location.hash = `/map?lat=${song.location_y}&lng=${song.location_x}`;
                             }}
                           >
-                            🗺️ View on Map
+{t('song.viewMap', 'View on Map')}
                           </Button>
                         </div>
                       </Card.Footer>

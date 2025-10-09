@@ -1,8 +1,9 @@
 import React from 'react';
-import { useAudio } from '../contexts';
+import { useAudio, useLanguage } from '../contexts';
 
 const SongPopup = ({ song, place, onClose }) => {
   const { playPreview, stopAudio } = useAudio();
+  const { t } = useLanguage();
 
 
   return (
@@ -13,10 +14,10 @@ const SongPopup = ({ song, place, onClose }) => {
       </div>
       <div className="popup-content">
         <div className="song-info">
-          <p><strong>Lyric:</strong> {song?.lyric || 'Lyric text here'}</p>
-          <p><strong>Artist:</strong> {song?.artist || 'Artist name'}</p>
-          <p><strong>Location:</strong> {place?.name || 'Location name'}</p>
-          <p><strong>Year:</strong> {song?.year || 'Unknown'}</p>
+          <p><strong>{t('song.lyrics', 'Lyric')}:</strong> {song?.lyric || t('song.lyrics', 'Lyric text here')}</p>
+          <p><strong>{t('song.artist', 'Artist')}:</strong> {song?.artist || t('song.artist', 'Artist name')}</p>
+          <p><strong>{t('song.location', 'Location')}:</strong> {place?.name || t('song.location', 'Location name')}</p>
+          <p><strong>Year:</strong> {song?.year || t('song.unknown', 'Unknown')}</p>
         </div>
 
 
@@ -30,7 +31,7 @@ const SongPopup = ({ song, place, onClose }) => {
               className="youtube-btn"
               aria-label="Listen to song on YouTube"
             >
-              <span role="img" aria-label="Music note">🎵</span> Listen on YouTube
+{t('song.listenYouTube', 'Listen on YouTube')}
             </a>
           </div>
         )}

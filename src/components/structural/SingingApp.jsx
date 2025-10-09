@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Routes } from 'react-router';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import SingingLayout from './SingingLayout';
