@@ -17,7 +17,7 @@ function SingingLayout() {
         expand="lg"
         className="app-header"
         style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: '#052659',
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         }}
       >

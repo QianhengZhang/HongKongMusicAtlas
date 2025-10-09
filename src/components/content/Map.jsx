@@ -123,9 +123,21 @@ const Map = () => {
   // Ordinary function: set map center
   const setMapCenter = (lngLat) => {
     if (mapInstanceRef.current) {
-      mapInstanceRef.current.flyTo({ center: lngLat, zoom: 12 });
+      mapInstanceRef.current.flyTo({ 
+        center: lngLat, 
+        zoom: 14,
+        duration: 1000,
+        essential: true
+      });
     }
   };
+
+  // Expose setMapCenter to global scope for MusicMarker to use
+  useEffect(() => {
+    if (mapInstanceRef.current) {
+      window.setMapCenter = setMapCenter;
+    }
+  }, [mapInstanceRef.current]);
 
   // Listen for filter changes
   useEffect(() => {

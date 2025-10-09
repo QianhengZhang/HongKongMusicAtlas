@@ -165,6 +165,11 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
 
   // Add click handler with popup management
   markerEl.addEventListener('click', () => {
+    // Move map to center on this marker
+    if (window.setMapCenter) {
+      window.setMapCenter(coordinates);
+    }
+
     // If this popup is already open, close it
     if (currentPopup === popup && currentPopup.isOpen()) {
       currentPopup.remove();
