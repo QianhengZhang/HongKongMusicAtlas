@@ -65,9 +65,9 @@ const FilterControls = () => {
   return (
     <Card className="mb-3">
       <Card.Header className="d-flex justify-content-between align-items-center">
-        <h2 className="mb-0">
+        <h4 className="mb-0">
 {t('filter.title', 'Filter Songs')}
-        </h2>
+        </h4>
         {hasActiveFilters && (
           <Button
             variant="outline-danger"

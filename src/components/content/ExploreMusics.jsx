@@ -253,45 +253,41 @@ Multi-location Version
                                 </Card.Header>
 
                                 <Card.Body className="song-card-body">
-                                  <div className="song-info-grid">
-                                    <div className="info-item">
-                                      <strong>
-{t('song.artist', 'Artist')}:
-                                      </strong>
-                                      <div className="artist-names">
-                                        {language === 'zh' ? formatNames(song.Singer) : formatNames(song.singer_en || song.Singer)}
+                                  <div className="song-info-simplified">
+                                    <div className="main-info">
+                                      <div className="info-row">
+                                        <strong>{t('song.artist', 'Artist')}:</strong>
+                                        <span>{language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown'))}</span>
                                       </div>
-                                    </div>
-
-                                    <div className="info-item">
-                                      <strong>
-{t('song.location', 'Location')}:
-                                      </strong>
-                                      <div className="location-names">
+                                      <div className="info-row">
+                                        <strong>{t('song.year', 'Year')}:</strong>
+                                        <span>{song.year || t('song.unknown', 'Unknown')}</span>
+                                      </div>
+                                      <div className="info-row">
+                                        <strong>{t('song.location', 'Location')}:</strong>
                                         <span>{language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}</span>
                                       </div>
                                     </div>
-
-                                    <div className="info-item">
-                                      <strong>
-{t('song.coordinates', 'Coordinates')}:
-                                      </strong>
-                                      <span>{song.location_x}, {song.location_y}</span>
-                                    </div>
-
-                                    <div className="info-item">
-                                      <strong>
-{t('song.album', 'Album')}:
-                                      </strong>
-                                      <span>{song.album || t('song.unknown', 'Unknown')}</span>
-                                    </div>
-
-                                    <div className="info-item">
-                                      <strong>{t('song.songwriter', 'Songwriter')}:</strong>
-                                      <div className="songwriter-names">
-                                        {language === 'zh' ? (formatNames(song.songwriter) || <span>{t('song.unknown', 'Unknown')}</span>) : (formatNames(song.song_writer_en) || formatNames(song.songwriter) || <span>{t('song.unknown', 'Unknown')}</span>)}
+                                    
+                                    <details className="more-details">
+                                      <summary className="details-toggle">
+                                        {t('song.moreDetails', 'More Details')}
+                                      </summary>
+                                      <div className="details-content">
+                                        <div className="info-row">
+                                          <strong>{t('song.album', 'Album')}:</strong>
+                                          <span>{song.album || t('song.unknown', 'Unknown')}</span>
+                                        </div>
+                                        <div className="info-row">
+                                          <strong>{t('song.songwriter', 'Songwriter')}:</strong>
+                                          <span>{language === 'zh' ? (song.songwriter || t('song.unknown', 'Unknown')) : (song.song_writer_en || song.songwriter || t('song.unknown', 'Unknown'))}</span>
+                                        </div>
+                                        <div className="info-row">
+                                          <strong>{t('song.coordinates', 'Coordinates')}:</strong>
+                                          <span>{song.location_x}, {song.location_y}</span>
+                                        </div>
                                       </div>
-                                    </div>
+                                    </details>
                                   </div>
 
                                   {/* Lyrics Section - Moved to prominent position */}
@@ -384,45 +380,41 @@ Multi-location Version
                       </Card.Header>
 
                       <Card.Body className="song-card-body">
-                        <div className="song-info-grid">
-                          <div className="info-item">
-                            <strong>
-{t('song.artist', 'Artist')}:
-                            </strong>
-                            <div className="artist-names">
-                              {language === 'zh' ? formatNames(song.Singer) : formatNames(song.singer_en || song.Singer)}
+                        <div className="song-info-simplified">
+                          <div className="main-info">
+                            <div className="info-row">
+                              <strong>{t('song.artist', 'Artist')}:</strong>
+                              <span>{language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown'))}</span>
                             </div>
-                          </div>
-
-                          <div className="info-item">
-                            <strong>
-{t('song.location', 'Location')}:
-                            </strong>
-                            <div className="location-names">
+                            <div className="info-row">
+                              <strong>{t('song.year', 'Year')}:</strong>
+                              <span>{song.year || t('song.unknown', 'Unknown')}</span>
+                            </div>
+                            <div className="info-row">
+                              <strong>{t('song.location', 'Location')}:</strong>
                               <span>{language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}</span>
                             </div>
                           </div>
-
-                          <div className="info-item">
-                            <strong>
-{t('song.coordinates', 'Coordinates')}:
-                            </strong>
-                            <span>{song.location_x}, {song.location_y}</span>
-                          </div>
-
-                          <div className="info-item">
-                            <strong>
-{t('song.album', 'Album')}:
-                            </strong>
-                            <span>{song.album || t('song.unknown', 'Unknown')}</span>
-                          </div>
-
-                          <div className="info-item">
-                            <strong>{t('song.songwriter', 'Songwriter')}:</strong>
-                            <div className="songwriter-names">
-                              {language === 'zh' ? (formatNames(song.songwriter) || <span>{t('song.unknown', 'Unknown')}</span>) : (formatNames(song.song_writer_en) || formatNames(song.songwriter) || <span>{t('song.unknown', 'Unknown')}</span>)}
+                          
+                          <details className="more-details">
+                            <summary className="details-toggle">
+                              {t('song.moreDetails', 'More Details')}
+                            </summary>
+                            <div className="details-content">
+                              <div className="info-row">
+                                <strong>{t('song.album', 'Album')}:</strong>
+                                <span>{song.album || t('song.unknown', 'Unknown')}</span>
+                              </div>
+                              <div className="info-row">
+                                <strong>{t('song.songwriter', 'Songwriter')}:</strong>
+                                <span>{language === 'zh' ? (song.songwriter || t('song.unknown', 'Unknown')) : (song.song_writer_en || song.songwriter || t('song.unknown', 'Unknown'))}</span>
+                              </div>
+                              <div className="info-row">
+                                <strong>{t('song.coordinates', 'Coordinates')}:</strong>
+                                <span>{song.location_x}, {song.location_y}</span>
+                              </div>
                             </div>
-                          </div>
+                          </details>
                         </div>
 
                         {/* Lyrics Section - Moved to prominent position */}

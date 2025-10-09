@@ -17,7 +17,7 @@ const Map = () => {
   // Get Mapbox token
   const fetchMapboxToken = async () => {
     // Hardcoded Mapbox token
-    const token = 'pk.eyJ1IjoiaGF6ZWxhbmQzNDI3IiwiYSI6ImNsMnNkd3lsNzBqa2EzbHBhMWlsc2p4aHYifQ.Gjb8ntV5xhWPXBn1UCUw8A';
+    const token = 'pk.eyJ1IjoiZXNzc3RoZXJjIiwiYSI6ImNsN2pka2tsMzA4c3c0Mm9iZGxrbmI1d2gifQ.STj4zgpL2uKJ1GH325OGCQ';
     setMapboxToken(token);
     return token;
   };
@@ -149,9 +149,9 @@ const Map = () => {
 
       const map = new mapboxgl.Map({
         container: mapRef.current,
-        style: 'mapbox://styles/mapbox/streets-v12',
+        style: 'mapbox://styles/essstherc/cmgj2ja1t001001sce03d5pf8',
         center: [114.1694, 22.3193], // Hong Kong center
-        zoom: 11,
+        zoom: 10,
       });
 
       mapInstanceRef.current = map;

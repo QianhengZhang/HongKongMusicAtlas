@@ -56,9 +56,9 @@ const InformationCard = () => {
   return (
     <Card>
       <Card.Header>
-        <h2 className="mb-0">
+        <h4 className="mb-0">
 Music Locations
-        </h2>
+        </h4>
       </Card.Header>
       <Card.Body>
         <p className="mb-2">

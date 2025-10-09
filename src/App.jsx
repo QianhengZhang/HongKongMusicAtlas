@@ -8,6 +8,7 @@ import {
   Layout,
   LandingPage,
   Map,
+  MapPage,
   AboutPage,
   SongPopup,
   FilterControls,
@@ -18,7 +19,7 @@ import LanguageSwitcher from './components/LanguageSwitcher'
 
 function App() {
   const { setCurrentPage } = useApp()
-  const { setTranslations, t } = useLanguage()
+  const { setTranslations, t, language } = useLanguage()
 
   // Initialize translations
   useEffect(() => {
@@ -30,6 +31,11 @@ function App() {
       // Language will be set by the context
     }
   }, [setTranslations])
+
+  // Apply language-specific body class
+  useEffect(() => {
+    document.body.className = `language-${language}`
+  }, [language])
 
   const handleGetStarted = () => {
     setCurrentPage('map')
@@ -45,7 +51,6 @@ function App() {
                       <h1>{t('landing.title', 'Hong Kong Music Atlas')}</h1>
             </div>
             <ul className="nav-links">
-              <li><a href="#/" className="nav-link">{t('nav.home', 'Home')}</a></li>
               <li><a href="#/map" className="nav-link">{t('nav.map', 'Map')}</a></li>
               <li><a href="#/explore" className="nav-link">{t('nav.explore', 'Explore Music')}</a></li>
               <li><a href="#/about" className="nav-link">{t('nav.about', 'About')}</a></li>
@@ -60,21 +65,7 @@ function App() {
         <main className="app-main">
           <Routes>
             <Route path="/" element={<LandingPage onGetStarted={handleGetStarted} />} />
-            <Route path="/map" element={
-              <Container fluid className="p-0">
-                <Row className="g-0" style={{ height: 'calc(100vh - 120px)' }}>
-                  <Col md={8} className="map-container p-0">
-                    <Map />
-                  </Col>
-                  <Col md={4} className="sidebar-container p-3">
-                    <div className="sidebar">
-                      <FilterControls />
-                      <InformationCard />
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            } />
+            <Route path="/map" element={<MapPage />} />
             <Route path="/explore" element={<ExploreMusics />} />
             <Route path="/about" element={<AboutPage />} />
           </Routes>

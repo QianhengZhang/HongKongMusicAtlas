@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,6 +11,100 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Font classes for language-specific styling */
+.montserrat-english {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.montserrat-english-light {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.montserrat-english-medium {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.montserrat-english-bold {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.noto-serif-tc-chinese {
+  font-family: "Noto Serif TC", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noto-serif-tc-chinese-light {
+  font-family: "Noto Serif TC", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.noto-serif-tc-chinese-medium {
+  font-family: "Noto Serif TC", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.noto-serif-tc-chinese-bold {
+  font-family: "Noto Serif TC", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Language-specific body classes */
+body.language-en {
+  font-family: "Montserrat", sans-serif;
+}
+
+body.language-zh {
+  font-family: "Noto Serif TC", serif;
+}
+
+/* Utility classes for specific font applications */
+.font-english {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.font-chinese {
+  font-family: "Noto Serif TC", serif !important;
+}
+
+/* Language-specific text styling */
+.language-en h1, .language-en h2, .language-en h3, .language-en h4, .language-en h5, .language-en h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.language-zh h1, .language-zh h2, .language-zh h3, .language-zh h4, .language-zh h5, .language-zh h6 {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 500;
+}
+
+.language-en p, .language-en span, .language-en div {
+  font-family: "Montserrat", sans-serif;
+}
+
+.language-zh p, .language-zh span, .language-zh div {
+  font-family: "Noto Serif TC", serif;
 }
 
 a {
