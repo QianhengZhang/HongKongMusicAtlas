@@ -22,7 +22,7 @@ function SingingLayout() {
         }}
       >
         <Container>
-          <Navbar.Brand as={Link} to="/" className="nav-brand">
+          <Navbar.Brand as={Link} to="/map" className="nav-brand">
             <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: 'white' }}>
 Hong Kong Music Atlas
             </h1>

@@ -7,9 +7,12 @@
 }
 
 .app-header {
-  background: #052659;
+  background: url("/images/nav bar.webp"), #33414e;
+  background-size: 57% auto;
+  background-position: left center;
+  background-repeat: no-repeat;
   color: white;
-  padding: 1.5rem 0;
+  padding: 2rem 0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   z-index: 1000;
 }
@@ -22,13 +25,36 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .main-navigation {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .nav-links {
+    margin-right: 0;
+    gap: 1rem;
+  }
+}
+
+.nav-brand {
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .nav-brand h1 {
   margin: 0;
-  font-size: 1.5rem;
+  margin-left: 150px;
+  transform: translateY(20px);
+  font-size: 1.8rem;
   font-weight: 800;
   color: white;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .nav-links {
@@ -37,6 +63,7 @@
   margin: 0;
   padding: 0;
   gap: 2rem;
+  margin-right: -30rem;
 }
 
 .nav-actions {
