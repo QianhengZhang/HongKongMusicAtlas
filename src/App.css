@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
   color: white;
   padding: 2rem 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   z-index: 1000;
 }
 
@@ -171,7 +171,7 @@
 }
 
 .cta-button {
-  background: #052659;
+  background: #33414e;
   color: white;
   border: none;
   padding: 1rem 2.5rem;
@@ -244,6 +244,69 @@
   left: 0;
 }
 
+/* Zoom Controls */
+.zoom-controls {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.zoom-btn {
+  width: 28px;
+  height: 28px;
+  background: white;
+  color: #33414e;
+  border: none;
+  border-radius: 4px;
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: all 0.1s ease;
+  box-sizing: border-box;
+  padding: 0.5em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.zoom-btn:hover {
+  background: #33414e;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.zoom-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.reset-btn {
+  width: 28px;
+  height: 28px;
+  background: white;
+  color: #33414e;
+  border: none;
+  border-radius: 4px;
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease;
+  box-sizing: border-box;
+  padding: 0.5em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
 /* Collapsible Drawer */
 .drawer-toggle {
   position: absolute;
@@ -263,11 +326,13 @@
   z-index: 1000;
   transition: all 0.3s ease;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  color: #6c757d !important;
 }
 
 .drawer-toggle:hover {
   background: rgba(255, 255, 255, 0.9);
   transform: translateY(-50%) scale(1.05);
+  color: #33414e !important;
 }
 
 .drawer-toggle.open {
@@ -624,7 +689,6 @@
 .lyrics-text {
   font-size: 0.85rem;
   color: #4b5563;
-  line-height: 1.5;
   font-style: italic;
   background: rgba(102, 126, 234, 0.05);
   padding: 12px;
@@ -658,14 +722,12 @@
 
 /* Popup Actions */
 .popup-actions {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #e9ecef;
+  padding-top: 2px;
 }
 
 .youtube-btn {
-  background: #ff0000;
-  color: white;
+  background: white;
+  color: #33414e;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
@@ -677,9 +739,10 @@
 }
 
 .youtube-btn:hover {
-  background: #cc0000;
+  background: #f8f9fa;
+  color: #33414e;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .youtube-btn:active {
@@ -690,7 +753,7 @@
 
 /* Close button styling */
 .music-popup .mapboxgl-popup-close-button {
-  color: rgba(255, 255, 255, 0.8);
+  color: white !important;
   font-size: 18px;
   font-weight: 300;
   padding: 8px;
@@ -698,9 +761,18 @@
 }
 
 .music-popup .mapboxgl-popup-close-button:hover {
-  color: white;
+  color: white !important;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
+}
+
+/* Ensure close button span is white */
+.music-popup .mapboxgl-popup-close-button span {
+  color: white !important;
+}
+
+.music-popup .mapboxgl-popup-close-button:hover span {
+  color: white !important;
 }
 
 .map-placeholder {
@@ -780,12 +852,12 @@
 }
 
 .language-switcher .dropdown-item:hover {
-  background: #052659 !important;
+  background: #33414e !important;
   color: white !important;
 }
 
 .language-switcher .dropdown-item.active {
-  background: #052659 !important;
+  background: #33414e !important;
   color: white !important;
 }
 
@@ -813,7 +885,7 @@
 }
 
 .clear-filters-btn {
-  background: #052659;
+  background: #33414e;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -954,7 +1026,7 @@
 }
 
 .popup-header {
-  background: #052659;
+  background: #33414e;
   color: white;
   padding: clamp(0.75rem, 2vw, 1rem);
   display: flex;
@@ -1013,8 +1085,8 @@
 
 .youtube-btn {
   display: inline-block;
-  background: #052659;
-  color: white;
+  background: #33414e;
+  color: #33414e;
   text-decoration: none;
   padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.8rem, 2vw, 1rem);
   border-radius: 8px;
@@ -1561,7 +1633,7 @@
 }
 
 .song-card-header {
-  background: #052659;
+  background: #33414e;
   color: white;
   border-bottom: none;
   padding: 1.5rem;
@@ -1716,7 +1788,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: #052659;
+  background: #33414e;
   border-radius: 8px 8px 0 0;
 }
 
@@ -1736,7 +1808,7 @@
   background: #E6E6E6;
   padding: 1rem;
   border-radius: 6px;
-  border-left: 4px solid #052659;
+  border-left: 4px solid #33414e;
   font-style: italic;
   color: #495057;
   line-height: 1.6;
@@ -1808,7 +1880,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: 0.3rem 0;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
@@ -1927,7 +1999,7 @@ p, span, div {
 }
 
 .btn-primary {
-  background: #052659;
+  background: #33414e;
   border: none;
   color: white;
 }
@@ -2004,4 +2076,219 @@ p, span, div {
 .bg-warning {
   background: #C6A664 !important;
   color: white !important;
+}
+
+/* Discover Lyrics Styles */
+.discover-lyrics-card {
+  background: transparent !important;
+  backdrop-filter: none;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.discover-lyrics-card .card-body {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.region-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(51, 65, 78, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.region-card:hover {
+  border-color: #33414e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(51, 65, 78, 0.15);
+}
+
+.region-card.selected {
+  background: #33414e;
+  color: white;
+  border-color: #33414e;
+  box-shadow: 0 8px 25px rgba(51, 65, 78, 0.3);
+}
+
+.region-card:focus {
+  outline: 2px solid #33414e;
+  outline-offset: 2px;
+}
+
+.region-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.region-count {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.chip {
+  background: rgba(255, 255, 255, 0.8);
+  color: #33414e;
+  border: 1px solid rgba(51, 65, 78, 0.3);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.chip:hover {
+  background: rgba(51, 65, 78, 0.1);
+  border-color: #33414e;
+  transform: translateY(-1px);
+}
+
+.chip.selected {
+  background: #33414e;
+  color: white;
+  border-color: #33414e;
+}
+
+.chip:focus {
+  outline: 2px solid #33414e;
+  outline-offset: 2px;
+}
+
+.results-summary {
+  background: rgba(51, 65, 78, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #33414e;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+}
+
+.empty-state p {
+  margin-bottom: 16px;
+}
+
+/* Results section styling */
+.results-section {
+  background: transparent; /* transparent container */
+  border-radius: 0; /* remove rounded card look */
+  padding: 12px 0; /* subtle vertical padding only */
+  margin-top: 12px;
+  box-shadow: none; /* remove any inner shadow */
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(51, 65, 78, 0.2), transparent);
+  border: none;
+}
+
+.results-summary {
+  background: transparent; /* no fill */
+  border-radius: 0; /* clean minimal */
+  padding: 0; /* spacing handled by text and actions */
+  border-left: none; /* no accent bar */
+}
+
+/* Result text styling */
+.results-text {
+  font-size: 1.075rem; /* 1.05–1.1rem */
+  font-weight: 500; /* medium weight */
+  color: #3A3A3A; /* neutral paragraph tone */
+  margin-bottom: 12px !important;
+  text-align: left; /* align with rest of panel */
+}
+
+/* Buttons layout and styling */
+.results-actions {
+  display: flex;
+  gap: 8px; /* evenly spaced */
+  align-items: center;
+}
+
+/* Clear button keeps light gray outline and neutral text */
+.btn-clear {
+  color: #6D6A75 !important;
+  border-color: #C6C6C6 !important;
+  background: transparent !important;
+}
+.btn-clear:hover {
+  background: #EDEDED !important;
+  color: #3A3A3A !important;
+}
+
+/* Play Random button uses main site blue */
+.btn-random {
+  color: #658FCD !important; /* text color */
+  border-color: #658FCD !important; /* border color */
+  background: transparent !important;
+}
+.btn-random:hover {
+  background: #658FCD !important; /* solid background on hover */
+  color: #FFFFFF !important; /* white text */
+  border-color: #658FCD !important;
+}
+
+/* Responsive behavior: stack buttons on narrow screens */
+@media (max-width: 576px) {
+  .results-actions {
+    flex-direction: column; /* stack vertically */
+    align-items: stretch; /* full width */
+    gap: 6px; /* vertical gap */
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 20px;
+}
+
+.empty-state p {
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .region-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chips-container {
+    gap: 6px;
+  }
+  
+  .chip {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+  }
+  
+  .results-section {
+    padding: 12px;
+  }
 }

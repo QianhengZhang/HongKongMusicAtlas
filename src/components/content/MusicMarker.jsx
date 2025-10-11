@@ -167,9 +167,23 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
 
   // Add click handler with popup management
   markerEl.addEventListener('click', () => {
-    // Move map to center on this marker
+    // Move map to center on this marker with appropriate zoom level
     if (window.setMapCenter) {
-      window.setMapCenter(coordinates);
+      // Check if this is a non-Hong Kong region marker
+      const isNonHongKong = data.region !== '香港' && data.region_en !== 'Hong Kong';
+      const zoomLevel = isNonHongKong ? 5.68 : 14.62; // Zoom to 5 for non-HK regions, 14 for HK
+      console.log('Marker clicked:', {
+        region: data.region,
+        region_en: data.region_en,
+        isNonHongKong: isNonHongKong,
+        zoomLevel: zoomLevel,
+        coordinates: coordinates
+      });
+      
+      // Record the time of marker click to prevent auto-fit from overriding
+      window.lastMarkerClickTime = Date.now();
+      
+      window.setMapCenter(coordinates, zoomLevel);
     }
 
     // If this popup is already open, close it
@@ -195,6 +209,33 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
       }
     });
   });
+
+  // Expose a method to programmatically open the popup (optionally recenter)
+  marker.openPopup = (options = {}) => {
+    const { recenter = false, zoom } = options;
+    if (recenter && window.setMapCenter) {
+      const isNonHongKong = data.region !== '香港' && data.region_en !== 'Hong Kong';
+      const zoomLevel = typeof zoom === 'number' ? zoom : (isNonHongKong ? 5.68 : 14.62);
+      window.lastMarkerClickTime = Date.now();
+      window.setMapCenter(coordinates, zoomLevel);
+    }
+
+    // Close any existing popup
+    if (currentPopup && currentPopup.isOpen()) {
+      currentPopup.remove();
+    }
+
+    // Open popup for this marker
+    popup.setLngLat(coordinates).addTo(map);
+    currentPopup = popup;
+
+    // Ensure cleanup on close
+    popup.on('close', () => {
+      if (currentPopup === popup) {
+        currentPopup = null;
+      }
+    });
+  };
 
   // Store cleanup function
   marker.cleanup = () => {

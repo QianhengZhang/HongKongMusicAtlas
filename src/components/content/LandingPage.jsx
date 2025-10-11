@@ -23,12 +23,12 @@ const LandingPage = () => {
         
         {/* Overlay content */}
         <div className="landing-overlay">
-          <h1>{t('landing.title', 'Hong Kong Music Atlas')}</h1>
+          <h1>{t('landing.title', 'Lyriscape of Cantopop')}</h1>
           <p className="subtitle">
-            {t('landing.subtitle', 'Explore Hong Kong\'s cultural geography through Cantonese pop music')}
+            {t('landing.subtitle', 'Explore cultural geography through Cantonese pop music')}
           </p>
           <p className="description">
-            {t('landing.description', 'Discover how Canto-pop songs reference specific neighborhoods, landmarks, and streets across Hong Kong. Each pin on the map represents a lyrical reference, creating a dynamic storytelling experience of the city\'s musical landscape.')}
+            {t('landing.description', 'Discover how Cantopop songs reference specific neighborhoods, landmarks, and streets across Hong Kong and far beyond. Each pin on the map represents a lyrical reference, creating a dynamic storytelling experience of the city\'s musical landscape.')}
           </p>
           <Button
             onClick={handleGetStarted}

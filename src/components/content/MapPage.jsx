@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Map from './Map';
-import FilterControls from './FilterControls';
-import InformationCard from './InformationCard';
+import DiscoverLyrics from './DiscoverLyrics';
 
 function MapPage() {
   const [drawerOpen, setDrawerOpen] = useState(true);
@@ -22,14 +21,13 @@ function MapPage() {
         onClick={toggleDrawer}
         aria-label="Toggle filter panel"
       >
-        {drawerOpen ? '✕' : '⚙️'}
+        {drawerOpen ? '✕' : '⤢'}
       </button>
       
       {/* Collapsible Drawer */}
       <div className={`drawer ${drawerOpen ? 'open' : ''}`}>
         <div className="drawer-content">
-          <FilterControls />
-          <InformationCard />
+          <DiscoverLyrics />
         </div>
       </div>
     </div>

@@ -51,12 +51,12 @@ const AboutPage = () => {
                     <h2 className="h4 mb-0">Tech</h2>
                   </div>
                   <div className="flip-card-back">
-                    <ul className="list-unstyled">
+                  <ul className="list-unstyled">
                       <li><strong>Frontend:</strong> React with modern hooks and context</li>
                       <li><strong>Mapping:</strong> Mapbox GL JS for interactive maps</li>
                       <li><strong>Styling:</strong> Bootstrap 5 for responsive design</li>
                       <li><strong>Data:</strong> Curated database of 50+ songs (scalable)</li>
-                    </ul>
+                  </ul>
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ const AboutPage = () => {
           </Row>
         </Col>
       </Row>
-      </Container>
+    </Container>
     </div>
   );
 };
