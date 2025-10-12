@@ -12,7 +12,7 @@ export const fetchMusicData = async () => {
     console.log('CSV data loaded, length:', csvText.length);
 
     // Parse CSV with proper handling of quoted fields
-    const lines = csvText.split('\n');
+    const lines = csvText.split('\n').filter(line => line.trim() !== '');
     const headers = lines[0].split(',').map(h => h.trim());
 
     const data = lines.slice(1).map((line, index) => {
@@ -70,6 +70,8 @@ export const fetchMusicData = async () => {
     });
 
     console.log('Parsed data:', data.length, 'locations found');
+    console.log('Sample parsed row:', data[0]);
+    console.log('Available fields:', data[0] ? Object.keys(data[0]) : 'No data');
     return data;
   } catch (error) {
     console.error('Error fetching music data:', error);

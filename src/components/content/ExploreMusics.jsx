@@ -63,6 +63,8 @@ const ExploreMusics = () => {
           };
         });
 
+        console.log('Loaded songs data:', groupedData.length, 'songs');
+        console.log('Sample song data:', groupedData[0]);
         setAllSongs(groupedData);
         setFilteredSongs(groupedData);
         setLoading(false);
@@ -92,8 +94,10 @@ const ExploreMusics = () => {
         const searchLower = searchTerm.toLowerCase();
 
         // Check if any part of the search term matches any field
-        const matchesSong = song.song?.toLowerCase().includes(searchLower);
-        const matchesLyrics = song.lyrics?.toLowerCase().includes(searchLower);
+        const matchesSong = song.song?.toLowerCase().includes(searchLower) ||
+                           song.song_en?.toLowerCase().includes(searchLower);
+        const matchesLyrics = song.lyrics?.toLowerCase().includes(searchLower) ||
+                             song.lyrics_en?.toLowerCase().includes(searchLower);
         const matchesAlbum = song.album?.toLowerCase().includes(searchLower);
 
         // Check artist names (handle comma-separated values)
@@ -106,6 +110,19 @@ const ExploreMusics = () => {
         // Check location names (both Chinese and English)
         const matchesLocation = song.location_name?.toLowerCase().includes(searchLower) ||
                                song.location_name_en?.toLowerCase().includes(searchLower);
+
+        // Debug logging for "Under the Lion Rock" search
+        if (searchLower === 'under the lion rock') {
+          console.log('Debug search for "Under the Lion Rock":', {
+            song: song.song,
+            song_en: song.song_en,
+            matchesSong,
+            matchesLyrics,
+            matchesArtist,
+            matchesLocation,
+            allFields: Object.keys(song)
+          });
+        }
 
         return matchesSong || matchesArtist || matchesLocation ||
                matchesLyrics || matchesAlbum || matchesSongwriter;
