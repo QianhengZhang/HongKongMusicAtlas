@@ -32,7 +32,6 @@ export const zh = {
   
   // Explore Music
   'explore.title': '探索香港音樂',
-  'explore.subtitle': '發現歌曲及其與香港地點聯繫的完整信息',
   'explore.searchPlaceholder': '按歌曲標題、歌手、地點、歌詞、專輯或作詞人搜索...',
   'explore.search': '搜索',
   'explore.listView': '列表視圖',

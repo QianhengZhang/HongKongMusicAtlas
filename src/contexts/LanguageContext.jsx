@@ -36,9 +36,19 @@ export const LanguageProvider = ({ children }) => {
     dispatch({ type: 'SET_TRANSLATIONS', payload: translations });
   };
 
-  const t = (key, fallback = '') => {
+  const t = (key, fallback = '', variables = {}) => {
     const translation = state.translations[state.language]?.[key];
-    return translation || fallback || key;
+    let text = translation || fallback || key;
+    
+    // Replace placeholders with variables
+    if (variables && Object.keys(variables).length > 0) {
+      Object.keys(variables).forEach(variable => {
+        const placeholder = `{${variable}}`;
+        text = text.replace(new RegExp(placeholder, 'g'), variables[variable]);
+      });
+    }
+    
+    return text;
   };
 
   const value = {

@@ -138,7 +138,6 @@ const ExploreMusics = () => {
         <Col>
           <div className="explore-header mb-4">
             <h1 className="display-4">{t('explore.title', 'Explore Hong Kong Music')}</h1>
-            <p className="lead">{t('explore.subtitle', 'Discover the complete information about songs and their connections to Hong Kong locations')}</p>
           </div>
 
           {/* Search Section */}
@@ -232,7 +231,7 @@ Multi-location Version
                                 <Card.Header className="song-card-header">
                                   <div className="d-flex justify-content-between align-items-start">
                                     <div className="flex-grow-1">
-                                      <h2>{song.song || 'Unknown Song'}</h2>
+                                      <h2>{language === 'zh' ? (song.song || 'Unknown Song') : (song.song_en || song.song || 'Unknown Song')}</h2>
                                       <div className="song-metadata">
                                         {language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown Artist')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown Artist'))} · {song.year || t('song.unknown', 'Unknown')} · {language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}
                                       </div>

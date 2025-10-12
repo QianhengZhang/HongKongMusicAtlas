@@ -31,8 +31,7 @@ export const en = {
   'filter.activeFilters': 'Active Filters:',
   
   // Explore Music
-  'explore.title': 'Explore Hong Kong Music',
-  'explore.subtitle': 'Discover the complete information about songs and their connections to Hong Kong locations',
+  'explore.title': 'Cantonese Pop Music Atlas',
   'explore.searchPlaceholder': 'Search by song title, artist, location, lyrics, album, or songwriter...',
   'explore.search': 'Search',
   'explore.listView': 'List View',
