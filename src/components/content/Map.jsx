@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { Button } from 'react-bootstrap';
 import MusicMarker from './MusicMarker';
+import LyricSubmissionForm from './LyricSubmissionForm';
 import { fetchMusicData, parseLocation } from '../../services/dataService';
 import { useMap, useLanguage } from '../../contexts';
 
@@ -11,6 +13,9 @@ const Map = () => {
   const [musicMarkers, setMusicMarkers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [mapboxToken, setMapboxToken] = useState(null);
+  const [showSubmissionForm, setShowSubmissionForm] = useState(false);
+  const [isMapClickMode, setIsMapClickMode] = useState(false);
+  const [clickedCoordinates, setClickedCoordinates] = useState(null);
   const { filters } = useMap();
   const languageContext = useLanguage();
 
@@ -20,6 +25,112 @@ const Map = () => {
     const token = 'pk.eyJ1IjoiZXNzc3RoZXJjIiwiYSI6ImNsN2pka2tsMzA4c3c0Mm9iZGxrbmI1d2gifQ.STj4zgpL2uKJ1GH325OGCQ';
     setMapboxToken(token);
     return token;
+  };
+
+  // Handle form submission
+  const handleFormSubmit = async (formData) => {
+    try {
+      console.log('Submitting form data:', formData);
+      
+      // Make API call to backend
+      const response = await fetch('http://localhost:3001/api/submit-lyric', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Submission failed');
+      }
+      
+      const result = await response.json();
+      console.log('Submission successful:', result);
+      
+      // Add the new marker to the existing markers
+      const newMarker = {
+        ...result.data,
+        location_x: result.data.location_x,
+        location_y: result.data.location_y
+      };
+      
+      // Create a new marker component
+      const markerElement = document.createElement('div');
+      markerElement.className = 'music-marker';
+      markerElement.innerHTML = `
+        <div class="marker-icon">
+          <i class="fas fa-music"></i>
+        </div>
+      `;
+      
+      const marker = new mapboxgl.Marker(markerElement)
+        .setLngLat([parseFloat(result.data.location_x), parseFloat(result.data.location_y)])
+        .addTo(mapInstanceRef.current);
+      
+      // Add click handler for the new marker
+      markerElement.addEventListener('click', () => {
+        // Handle marker click - show popup or navigate
+        console.log('New marker clicked:', newMarker);
+      });
+      
+      // Store marker reference for cleanup
+      const markerWithCleanup = {
+        ...marker,
+        cleanup: () => marker.remove(),
+        data: newMarker
+      };
+      
+      setMusicMarkers(prev => [...prev, markerWithCleanup]);
+      
+      // Fly to the new marker
+      flyToNewMarker(parseFloat(result.data.location_x), parseFloat(result.data.location_y));
+      
+      // Show success message
+      alert(languageContext.language === 'zh' 
+        ? '已提交，歌词標記已顯示在地圖上' 
+        : 'Thanks! Your lyric has been added to the map.'
+      );
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      throw error;
+    }
+  };
+
+  // Fly to new marker with animation
+  const flyToNewMarker = (lng, lat) => {
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.flyTo({
+        center: [lng, lat],
+        zoom: 14,
+        duration: 1200,
+        easing: (t) => t * (2 - t) // cubic-bezier(0.33, 0, 0.2, 1) approximation
+      });
+    }
+  };
+
+  // Handle map click for coordinate selection
+  const handleMapClick = (mode) => {
+    setIsMapClickMode(mode);
+    
+    if (mode && mapInstanceRef.current) {
+      const handleClick = (e) => {
+        const { lng, lat } = e.lngLat;
+        setClickedCoordinates({ lng, lat });
+        // You can pass these coordinates back to the form
+        console.log('Map clicked at:', lng, lat);
+      };
+      
+      mapInstanceRef.current.on('click', handleClick);
+      
+      // Store the handler for cleanup
+      mapInstanceRef.current._coordinateClickHandler = handleClick;
+    } else if (mapInstanceRef.current && mapInstanceRef.current._coordinateClickHandler) {
+      mapInstanceRef.current.off('click', mapInstanceRef.current._coordinateClickHandler);
+      delete mapInstanceRef.current._coordinateClickHandler;
+    }
   };
 
   //clear all music markers
@@ -367,6 +478,45 @@ const Map = () => {
           <div>Loading music markers...</div>
         </div>
       )}
+      
+      {/* Add Lyric Button */}
+      <Button
+        className="add-lyric-btn"
+        onClick={() => setShowSubmissionForm(true)}
+        style={{
+          position: 'absolute',
+          bottom: '20px',
+          left: '20px',
+          zIndex: 1000,
+          borderRadius: '50px',
+          padding: '12px 20px',
+          fontSize: '14px',
+          fontWeight: '600',
+          background: '#658fcd',
+          border: 'none',
+          boxShadow: '0 4px 12px rgba(101, 143, 205, 0.3)',
+          transition: 'all 0.3s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'translateY(-2px)';
+          e.target.style.boxShadow = '0 6px 16px rgba(101, 143, 205, 0.4)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'translateY(0)';
+          e.target.style.boxShadow = '0 4px 12px rgba(101, 143, 205, 0.3)';
+        }}
+      >
+        {languageContext.language === 'zh' ? '添加歌词点' : 'Add a lyric'}
+      </Button>
+
+      {/* Lyric Submission Form */}
+      <LyricSubmissionForm
+        show={showSubmissionForm}
+        onHide={() => setShowSubmissionForm(false)}
+        onSubmit={handleFormSubmit}
+        onMapClick={handleMapClick}
+        clickedCoordinates={clickedCoordinates}
+      />
     </div>
   );
 };

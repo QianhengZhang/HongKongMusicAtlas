@@ -2194,26 +2194,301 @@ p, span, div {
 }
 
 .btn-primary {
-  background: #33414e;
-  border: none;
-  color: white;
+  background: #658fcd !important;
+  border: none !important;
+  color: white !important;
 }
 
 .btn-primary:hover {
-  background: #5483B3;
+  background: #5a7bb8 !important;
   transform: translateY(-1px);
   box-shadow: var(--shadow-medium);
 }
 
 .btn-outline-primary {
-  color: #6D6A75;
-  border-color: #A5B2AA;
+  color: #658fcd;
+  border-color: #658fcd;
+  background: white;
+}
+
+/* Form section titles */
+.lyric-form .text-primary {
+  color: #658fcd !important;
+}
+
+/* Form buttons */
+.lyric-form .btn-primary,
+.lyric-form button.btn-primary,
+.lyric-form .btn.btn-primary {
+  background: #658fcd !important;
+  border-color: #658fcd !important;
+  color: white !important;
+}
+
+.lyric-form .btn-primary:hover,
+.lyric-form button.btn-primary:hover,
+.lyric-form .btn.btn-primary:hover {
+  background: #5a7bb8 !important;
+  border-color: #5a7bb8 !important;
+  color: white !important;
+}
+
+/* Form outline buttons */
+.lyric-form .btn-outline-primary,
+.lyric-form button.btn-outline-primary,
+.lyric-form .btn.btn-outline-primary {
+  background: white !important;
+  border-color: #658fcd !important;
+  color: #658fcd !important;
+}
+
+.lyric-form .btn-outline-primary:hover,
+.lyric-form button.btn-outline-primary:hover,
+.lyric-form .btn.btn-outline-primary:hover {
+  background: #658fcd !important;
+  border-color: #658fcd !important;
+  color: white !important;
+}
+
+/* Compact form layout */
+.lyric-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .lyric-form .form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+@media (min-width: 992px) {
+  .lyric-form .form-section-fullwidth {
+    grid-column: 1 / -1;
+  }
+}
+
+.lyric-form .form-section {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #e9ecef;
+}
+
+.lyric-form .section-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #658fcd;
+}
+
+.lyric-form .bilingual-group {
+  margin-bottom: 14px;
+}
+
+.lyric-form .bilingual-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.lyric-form .coordinate-section {
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.lyric-form .coordinate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.lyric-form .map-select-btn {
+  font-size: 0.8rem;
+  padding: 4px 12px;
+}
+
+.lyric-form .map-hint {
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.lyric-form .form-control {
+  height: 40px;
+  font-size: 0.9rem;
+}
+
+.lyric-form .form-control:focus {
+  border-color: #658fcd;
+  box-shadow: 0 0 0 0.2rem rgba(101, 143, 205, 0.25);
+}
+
+.lyric-form textarea.form-control {
+  height: auto;
+  min-height: 60px;
+  resize: vertical;
+}
+
+/* Form description alert styling */
+.lyric-form .alert-info,
+.lyric-form .alert.alert-info,
+.lyric-form div.alert-info {
+  background: #658fcd !important;
+  border-color: #658fcd !important;
+  color: white !important;
+}
+
+/* Override Bootstrap alert styles */
+.lyric-form .alert-info * {
+  color: white !important;
+}
+
+/* High priority alert styling */
+.lyric-form .alert,
+.lyric-form .alert-info,
+.lyric-form [class*="alert"] {
+  background: #658fcd !important;
+  border-color: #658fcd !important;
+  color: white !important;
+}
+
+.lyric-form .alert *,
+.lyric-form .alert-info *,
+.lyric-form [class*="alert"] * {
+  color: white !important;
+}
+
+/* Override Bootstrap alert-info specifically */
+.alert-info {
+  background: #658fcd !important;
+  border-color: #658fcd !important;
+  color: white !important;
+}
+
+.alert-info * {
+  color: white !important;
+}
+
+/* Force override any Bootstrap or inline styles */
+[class*="alert-info"],
+div[class*="alert"],
+.alert[class*="info"] {
+  background: #658fcd !important;
+  border-color: #658fcd !important;
+  color: white !important;
+}
+
+[class*="alert-info"] *,
+div[class*="alert"] *,
+.alert[class*="info"] * {
+  color: white !important;
+}
+
+/* Year & Lyrics specific styles */
+.lyric-form .year-lyrics-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.lyric-form .lyrics-row {
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.lyric-form .field-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* Desktop layout for Year & Lyrics */
+@media (min-width: 992px) {
+  .lyric-form .year-lyrics-row {
+    grid-template-columns: 160px 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  
+  .lyric-form .year-field {
+    min-width: 120px;
+  }
+  
+  .lyric-form .songwriter-field,
+  .lyric-form .songwriter-en-field {
+    flex: 1;
+  }
+  
+  /* Lyrics side by side on desktop */
+  .lyric-form .lyrics-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  
+  .lyric-form .lyrics-chinese-field,
+  .lyric-form .lyrics-english-field {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Mobile layout for Year & Lyrics */
+@media (max-width: 991px) {
+  .lyric-form .year-lyrics-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .lyric-form .year-field,
+  .lyric-form .songwriter-field,
+  .lyric-form .songwriter-en-field {
+    width: 100%;
+  }
+  
+  /* Lyrics single column on mobile */
+  .lyric-form .lyrics-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .lyric-form .lyrics-chinese-field,
+  .lyric-form .lyrics-english-field {
+    width: 100%;
+  }
 }
 
 .btn-outline-primary:hover {
-  background: #A5B2AA;
-  border-color: #A5B2AA;
+  background: #658fcd;
+  border-color: #658fcd;
   color: white;
+}
+
+/* High priority button styles for form submission */
+button.btn-primary,
+.btn.btn-primary,
+input[type="submit"].btn-primary {
+  background: #658fcd !important;
+  border-color: #658fcd !important;
+  color: white !important;
+}
+
+button.btn-primary:hover,
+.btn.btn-primary:hover,
+input[type="submit"].btn-primary:hover {
+  background: #5a7bb8 !important;
+  border-color: #5a7bb8 !important;
+  color: white !important;
 }
 
 .btn-outline-secondary {

@@ -91,5 +91,26 @@ export const en = {
   'about.contributing.content': 'We welcome contributions and suggestions! If you know of a Canto-pop song that references a specific Hong Kong location, or if you\'d like to help improve the project, please get in touch.',
   'about.contributing.email1': 'Email: qzhang533@wisc.edu',
   'about.contributing.email2': 'Email: yanbing.chen@wisc.edu',
-  'about.contributing.github': 'Github: https://github.com/QianhengZhang/HongKongMusicAtlas'
+  'about.contributing.github': 'Github: https://github.com/QianhengZhang/HongKongMusicAtlas',
+
+  // Form
+  'form.errors.songRequired': 'Song name is required',
+  'form.errors.songEnRequired': 'English song name is required',
+  'form.errors.singerRequired': 'Singer is required',
+  'form.errors.singerEnRequired': 'English singer name is required',
+  'form.errors.locationRequired': 'Location name is required',
+  'form.errors.locationEnRequired': 'English location name is required',
+  'form.errors.regionRequired': 'Region is required',
+  'form.errors.regionEnRequired': 'English region is required',
+  'form.errors.yearRequired': 'Year is required',
+  'form.errors.lyricsRequired': 'Lyrics are required',
+  'form.errors.yearInvalid': 'Year must be between 1900 and current year',
+  'form.errors.latInvalid': 'Latitude must be between -90 and 90',
+  'form.errors.lngInvalid': 'Longitude must be between -180 and 180',
+  'form.errors.lyricsTooLong': 'Lyrics must be 4 lines or less',
+  'form.errors.lyricsEnTooLong': 'English lyrics must be 4 lines or less',
+  'form.errors.submitFailed': 'Submission failed. Please try again.',
+  'form.success.submitted': 'Thanks! Your lyric has been added to the map.',
+  'form.success.duplicate': 'A similar entry may already exist. Still want to submit as another version?',
+  'form.description': 'Share your favorite Cantopop lyric that hasn\'t shown on the map yet, help us make the world of Cantonese pop more complete. Your mark will show up on the map right away!'
 };

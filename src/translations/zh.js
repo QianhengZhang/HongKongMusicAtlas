@@ -91,5 +91,26 @@ export const zh = {
   'about.contributing.content': '我們歡迎貢獻和建議！如果您知道引用特定香港地點的粵語流行歌曲，或者您想幫助改進項目，請聯繫我們。',
   'about.contributing.email1': '郵箱：qzhang533@wisc.edu',
   'about.contributing.email2': '郵箱：yanbing.chen@wisc.edu',
-  'about.contributing.github': 'Github：https://github.com/QianhengZhang/HongKongMusicAtlas'
+  'about.contributing.github': 'Github：https://github.com/QianhengZhang/HongKongMusicAtlas',
+
+  // Form
+  'form.errors.songRequired': '歌曲名是必填项',
+  'form.errors.songEnRequired': '英文歌曲名是必填项',
+  'form.errors.singerRequired': '歌手是必填项',
+  'form.errors.singerEnRequired': '英文歌手名是必填项',
+  'form.errors.locationRequired': '地名是必填项',
+  'form.errors.locationEnRequired': '英文地名是必填项',
+  'form.errors.regionRequired': '地区是必填项',
+  'form.errors.regionEnRequired': '英文地区是必填项',
+  'form.errors.yearRequired': '年份是必填项',
+  'form.errors.lyricsRequired': '歌词是必填项',
+  'form.errors.yearInvalid': '年份必须在1900年到当前年份之间',
+  'form.errors.latInvalid': '纬度必须在-90到90之间',
+  'form.errors.lngInvalid': '经度必须在-180到180之间',
+  'form.errors.lyricsTooLong': '歌词不能超过4行',
+  'form.errors.lyricsEnTooLong': '英文歌词不能超过4行',
+  'form.errors.submitFailed': '提交失败，请重试',
+  'form.success.submitted': '已提交，歌词標記已顯示在地圖上',
+  'form.success.duplicate': '可能已存在；仍要提交为另一版本吗？',
+  'form.description': '分享一首地圖上還沒出現的粵語歌，一起讓這張粵語流行地圖更完整。添加後地點會立即出現噢！'
 };
