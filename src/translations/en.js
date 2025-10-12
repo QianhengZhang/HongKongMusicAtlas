@@ -37,7 +37,7 @@ export const en = {
   'explore.search': 'Search',
   'explore.listView': 'List View',
   'explore.groupView': 'Group View',
-  'explore.tip': 'Tip: Use Group View to better view multi-version songs',
+  'explore.tip': 'Tip: Use Group View to better explore multi-location songs',
   'explore.found': 'Found {count} song{s}',
   'explore.matching': 'matching "{term}"',
   'explore.multiLocation': 'song{s} with multiple locations',
@@ -57,8 +57,10 @@ export const en = {
   'song.listenYouTube': 'Listen on YouTube',
   'song.viewMap': 'View on Map',
   'song.version': 'Version {current} / {total}',
-  'song.multiLocation': 'Multi-location Version',
+  'song.multiLocation': 'Multi-location',
   'song.unknown': 'Unknown',
+  'song.listenHere': 'Listen Here',
+  'song.seeOnMap': 'See on Map',
   
   // Footer
   'footer.copyright': '© 2025 Hong Kong Music Atlas. Exploring Hong Kong\'s musical geography.',

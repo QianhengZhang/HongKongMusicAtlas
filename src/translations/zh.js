@@ -37,7 +37,7 @@ export const zh = {
   'explore.search': '搜索',
   'explore.listView': '列表視圖',
   'explore.groupView': '分組視圖',
-  'explore.tip': '提示：使用分組視圖更好地查看多版本歌曲',
+  'explore.tip': '提示：使用分組視圖探索多地點歌曲',
   'explore.found': '找到 {count} 首歌曲',
   'explore.matching': '匹配 "{term}"',
   'explore.multiLocation': '首歌曲有多個地點',
@@ -57,11 +57,13 @@ export const zh = {
   'song.listenYouTube': '在YouTube上收聽',
   'song.viewMap': '在地圖上查看',
   'song.version': '版本 {current} / {total}',
-  'song.multiLocation': '多地點版本',
+  'song.multiLocation': '多地點',
   'song.unknown': '未知',
+  'song.listenHere': '收聽',
+  'song.seeOnMap': '查看地圖',
   
   // Footer
-  'footer.copyright': '© 2025 香港音樂地圖。探索香港的音樂地理。',
+  'footer.copyright': '© 2025 香港音樂地圖。',
   
   // Language Switcher
   'language.english': 'English',

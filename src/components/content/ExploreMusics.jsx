@@ -152,8 +152,8 @@ const ExploreMusics = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <Button variant="primary" type="submit">
-                  🔍 {t('explore.search', 'Search')}
+                <Button variant="primary" type="submit" className="search-btn">
+                  {t('explore.search', 'Search')}
                 </Button>
               </InputGroup>
             </Form>
@@ -171,7 +171,7 @@ const ExploreMusics = () => {
                 </Button>
                 {filteredSongs.some(song => song.totalVersions > 1) && (
                   <small className="text-muted">
-                    {t('explore.tip', 'Tip: Use Group View to better view multi-version songs')}
+                    {t('explore.tip', 'Tip: Use Group View to better explore multi-location songs')}
                   </small>
                 )}
               </div>
@@ -228,92 +228,36 @@ Multi-location Version
                           {songs.map((song, index) => (
                             <Col key={`${song.id || index}-${song.location_name}`} lg={6} xl={4} className="mb-4">
                               <Card className="h-100 song-card">
+                                <div className="region-accent"></div>
                                 <Card.Header className="song-card-header">
                                   <div className="d-flex justify-content-between align-items-start">
-                                    <div>
-                                      <h2 className="mb-1">{song.song || 'Unknown Song'}</h2>
-                                      <p className="mb-0 text-muted">{song.Singer || 'Unknown Artist'}</p>
-                                                                  {hasMultipleVersions && (
-                              <div className="version-indicator">
-                                <Badge bg="info" className="version-badge">
-                                  Version {song.versionNumber} / {song.totalVersions}
-                                </Badge>
-                              </div>
-                            )}
+                                    <div className="flex-grow-1">
+                                      <h2>{song.song || 'Unknown Song'}</h2>
+                                      <div className="song-metadata">
+                                        {language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown Artist')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown Artist'))} · {song.year || t('song.unknown', 'Unknown')} · {language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}
+                                      </div>
                                     </div>
-                                    <div className="d-flex flex-column align-items-end gap-1">
-                                      <Badge bg="primary">{song.year || 'Unknown Year'}</Badge>
-                                      {hasMultipleVersions && (
-                                        <Badge bg="warning" text="dark" className="multi-version-badge">
-Multi-location Version
-                                        </Badge>
-                                      )}
-                                    </div>
+                                    {hasMultipleVersions && (
+                                      <div className="multi-location-pill">
+                                        {t('song.multiLocation', 'Multi-location Version')}
+                                      </div>
+                                    )}
                                   </div>
                                 </Card.Header>
 
                                 <Card.Body className="song-card-body">
-                                  <div className="song-info-simplified">
-                                    <div className="main-info">
-                                      <div className="info-row">
-                                        <strong>{t('song.artist', 'Artist')}:</strong>
-                                        <span>{language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown'))}</span>
-                                      </div>
-                                      <div className="info-row">
-                                        <strong>{t('song.year', 'Year')}:</strong>
-                                        <span>{song.year || t('song.unknown', 'Unknown')}</span>
-                                      </div>
-                                      <div className="info-row">
-                                        <strong>{t('song.location', 'Location')}:</strong>
-                                        <span>{language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}</span>
-                                      </div>
+                                  <div className="song-additional-info">
+                                    <div className="info-item">
+                                      <span className="info-label">{t('song.album', 'Album')}:</span> <span>{song.album || t('song.unknown', 'Unknown')}</span>
                                     </div>
-                                    
-                                    <details className="more-details">
-                                      <summary className="details-toggle">
-                                        {t('song.moreDetails', 'More Details')}
-                                      </summary>
-                                      <div className="details-content">
-                                        <div className="info-row">
-                                          <strong>{t('song.album', 'Album')}:</strong>
-                                          <span>{song.album || t('song.unknown', 'Unknown')}</span>
-                                        </div>
-                                        <div className="info-row">
-                                          <strong>{t('song.songwriter', 'Songwriter')}:</strong>
-                                          <span>{language === 'zh' ? (song.songwriter || t('song.unknown', 'Unknown')) : (song.song_writer_en || song.songwriter || t('song.unknown', 'Unknown'))}</span>
-                                        </div>
-                                        <div className="info-row">
-                                          <strong>{t('song.coordinates', 'Coordinates')}:</strong>
-                                          <span>{song.location_x}, {song.location_y}</span>
-                                        </div>
-                                      </div>
-                                    </details>
+                                    <div className="info-item">
+                                      <span className="info-label">{t('song.songwriter', 'Songwriter')}:</span> <span>{language === 'zh' ? (song.songwriter || t('song.unknown', 'Unknown')) : (song.song_writer_en || song.songwriter || t('song.unknown', 'Unknown'))}</span>
+                                    </div>
                                   </div>
-
-                                  {/* Lyrics Section - Moved to prominent position */}
-                                  {(song.lyrics || song.lyrics_en) && (
-                                    <div className="lyrics-section mt-3">
-                                      <div className="lyrics-header">
-                                        <strong>{t('song.lyrics', 'Lyrics')}</strong>
-                                      </div>
-                                      <div className="lyrics-content">
-                                        {(() => {
-                                          const lyricsText = language === 'zh' ? (song.lyrics || song.lyrics_en) : (song.lyrics_en || song.lyrics);
-                                          return lyricsText && lyricsText.length > 200
-                                            ? `${lyricsText.substring(0, 200)}...`
-                                            : lyricsText;
-                                        })()}
-                                      </div>
-                                      {(() => {
-                                        const lyricsText = language === 'zh' ? (song.lyrics || song.lyrics_en) : (song.lyrics_en || song.lyrics);
-                                        return lyricsText && lyricsText.length > 200 && (
-                                          <div className="lyrics-expand">
-                                            <small className="text-primary">{t('song.expandLyrics', 'Click to expand full lyrics')}</small>
-                                          </div>
-                                        );
-                                      })()}
-                                    </div>
-                                  )}
+                                  
+                                  <div className="song-lyrics">
+                                    {language === 'zh' ? (song.lyrics || t('song.lyrics', 'Lyric text here')) : (song.lyrics_en || song.lyrics || t('song.lyrics', 'Lyric text here'))}
+                                  </div>
                                 </Card.Body>
 
                                 <Card.Footer className="song-card-footer">
@@ -355,92 +299,36 @@ Multi-location Version
                 {filteredSongs.map((song, index) => (
                   <Col key={song.id || index} lg={6} xl={4} className="mb-4">
                     <Card className="h-100 song-card">
+                      <div className="region-accent"></div>
                       <Card.Header className="song-card-header">
                         <div className="d-flex justify-content-between align-items-start">
-                          <div>
-                            <h2 className="mb-1">{language === 'zh' ? (song.song || t('song.unknown', 'Unknown Song')) : (song.song_en || song.song || t('song.unknown', 'Unknown Song'))}</h2>
-                            <p className="mb-0 text-muted">{language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown Artist')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown Artist'))}</p>
-                            {song.totalVersions && song.totalVersions > 1 && (
-                              <div className="version-indicator">
-                                <Badge bg="info" className="version-badge">
-                                  Lyrics Version {song.versionNumber} / {song.totalVersions}
-                                </Badge>
-                              </div>
-                            )}
+                          <div className="flex-grow-1">
+                            <h2>{language === 'zh' ? (song.song || t('song.unknown', 'Unknown Song')) : (song.song_en || song.song || t('song.unknown', 'Unknown Song'))}</h2>
+                            <div className="song-metadata">
+                              {language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown Artist')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown Artist'))} · {song.year || t('song.unknown', 'Unknown')} · {language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}
+                            </div>
                           </div>
-                          <div className="d-flex flex-column align-items-end gap-1">
-                            <Badge bg="primary">{song.year || t('song.unknown', 'Unknown')}</Badge>
-                            {song.totalVersions && song.totalVersions > 1 && (
-                              <Badge bg="warning" text="dark" className="multi-version-badge">
-{t('song.multiLocation', 'Multi-location Version')}
-                              </Badge>
-                            )}
-                          </div>
+                          {song.totalVersions && song.totalVersions > 1 && (
+                            <div className="multi-location-pill">
+                              {t('song.multiLocation', 'Multi-location Version')}
+                            </div>
+                          )}
                         </div>
                       </Card.Header>
 
                       <Card.Body className="song-card-body">
-                        <div className="song-info-simplified">
-                          <div className="main-info">
-                            <div className="info-row">
-                              <strong>{t('song.artist', 'Artist')}:</strong>
-                              <span>{language === 'zh' ? (song.Singer || t('song.unknown', 'Unknown')) : (song.singer_en || song.Singer || t('song.unknown', 'Unknown'))}</span>
-                            </div>
-                            <div className="info-row">
-                              <strong>{t('song.year', 'Year')}:</strong>
-                              <span>{song.year || t('song.unknown', 'Unknown')}</span>
-                            </div>
-                            <div className="info-row">
-                              <strong>{t('song.location', 'Location')}:</strong>
-                              <span>{language === 'zh' ? (song.location_name || t('song.unknown', 'Unknown')) : (song.location_name_en || song.location_name || t('song.unknown', 'Unknown'))}</span>
-                            </div>
+                        <div className="song-additional-info">
+                          <div className="info-item">
+                            <span className="info-label">{t('song.album', 'Album')}:</span> <span>{song.album || t('song.unknown', 'Unknown')}</span>
                           </div>
-                          
-                          <details className="more-details">
-                            <summary className="details-toggle">
-                              {t('song.moreDetails', 'More Details')}
-                            </summary>
-                            <div className="details-content">
-                              <div className="info-row">
-                                <strong>{t('song.album', 'Album')}:</strong>
-                                <span>{song.album || t('song.unknown', 'Unknown')}</span>
-                              </div>
-                              <div className="info-row">
-                                <strong>{t('song.songwriter', 'Songwriter')}:</strong>
-                                <span>{language === 'zh' ? (song.songwriter || t('song.unknown', 'Unknown')) : (song.song_writer_en || song.songwriter || t('song.unknown', 'Unknown'))}</span>
-                              </div>
-                              <div className="info-row">
-                                <strong>{t('song.coordinates', 'Coordinates')}:</strong>
-                                <span>{song.location_x}, {song.location_y}</span>
-                              </div>
-                            </div>
-                          </details>
+                          <div className="info-item">
+                            <span className="info-label">{t('song.songwriter', 'Songwriter')}:</span> <span>{language === 'zh' ? (song.songwriter || t('song.unknown', 'Unknown')) : (song.song_writer_en || song.songwriter || t('song.unknown', 'Unknown'))}</span>
+                          </div>
                         </div>
-
-                        {/* Lyrics Section - Moved to prominent position */}
-                        {(song.lyrics || song.lyrics_en) && (
-                          <div className="lyrics-section mt-3">
-                            <div className="lyrics-header">
-                              <strong>{t('song.lyrics', 'Lyrics')}</strong>
-                            </div>
-                            <div className="lyrics-content">
-                              {(() => {
-                                const lyricsText = language === 'zh' ? (song.lyrics || song.lyrics_en) : (song.lyrics_en || song.lyrics);
-                                return lyricsText && lyricsText.length > 200
-                                  ? `${lyricsText.substring(0, 200)}...`
-                                  : lyricsText;
-                              })()}
-                            </div>
-                            {(() => {
-                              const lyricsText = language === 'zh' ? (song.lyrics || song.lyrics_en) : (song.lyrics_en || song.lyrics);
-                              return lyricsText && lyricsText.length > 200 && (
-                                <div className="lyrics-expand">
-                                  <small className="text-primary">{t('song.expandLyrics', 'Click to expand full lyrics')}</small>
-                                </div>
-                              );
-                            })()}
-                          </div>
-                        )}
+                        
+                        <div className="song-lyrics">
+                          {language === 'zh' ? (song.lyrics || t('song.lyrics', 'Lyric text here')) : (song.lyrics_en || song.lyrics || t('song.lyrics', 'Lyric text here'))}
+                        </div>
                       </Card.Body>
 
                       <Card.Footer className="song-card-footer">
