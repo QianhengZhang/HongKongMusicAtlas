@@ -159,14 +159,17 @@
   font-size: clamp(2.5rem, 6vw, 4rem);
   margin-bottom: 1.5rem;
   color: #021024;
-  font-weight: 700;
+  font-weight: normal !important;
 }
 
-.landing-overlay .subtitle {
+.landing-overlay .subtitle,
+.landing-overlay .subtitle h2,
+.landing-overlay .subtitle h3 {
   font-size: clamp(1.1rem, 3vw, 1.4rem);
   color: #021024;
   margin-bottom: 2rem;
   line-height: 1.5;
+  font-weight: normal !important;
 }
 
 .landing-overlay .description {
@@ -177,9 +180,9 @@
 }
 
 .cta-button {
-  background: #33414e;
+  background: #658fcd !important;
   color: white;
-  border: none;
+  border: none !important;
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
   border-radius: 12px;
@@ -192,7 +195,8 @@
 .cta-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  background: #5483B3;
+  color: #5a7bb8;
+  background: white;
 }
 
 .features-preview {

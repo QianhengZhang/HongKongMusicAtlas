@@ -55,7 +55,7 @@ const AboutPage = () => {
                       <li><strong>Frontend:</strong> React with modern hooks and context</li>
                       <li><strong>Mapping:</strong> Mapbox GL JS for interactive maps</li>
                       <li><strong>Styling:</strong> Bootstrap 5 for responsive design</li>
-                      <li><strong>Data:</strong> Curated database of 50+ songs (scalable)</li>
+                      <li><strong>Data:</strong> Curated database of 100+ songs (scalable)</li>
                   </ul>
                   </div>
                 </div>

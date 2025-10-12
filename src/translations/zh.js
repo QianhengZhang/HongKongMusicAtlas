@@ -2,12 +2,12 @@ export const zh = {
   // Navigation
   'nav.home': '首頁',
   'nav.map': '地圖',
-  'nav.explore': '探索音樂',
+  'nav.explore': '音樂庫',
   'nav.about': '關於',
   
   // Landing Page
-  'landing.title': '香港音樂地圖',
-  'landing.subtitle': '通過粵語流行音樂探索香港的文化地理',
+  'landing.title': '',
+  'landing.subtitle': '從香港出發，探索粵語流行曲里的世界',
   'landing.description': '發現粵語流行歌曲如何引用香港特定的社區、地標和街道。地圖上的每個標記都代表一個歌詞引用，創造出城市音樂景觀的動態敘事體驗。',
   'landing.getStarted': '開始探索',
   'landing.photoCredit': '圖片來源於網絡',
@@ -81,7 +81,7 @@ export const zh = {
   'about.technical.mapping': '地圖：',
   'about.technical.styling': '樣式：',
   'about.technical.data': '數據：',
-  'about.technical.frontend.value': '使用現代鉤子和上下文的React',
+  'about.technical.frontend.value': 'React',
   'about.technical.mapping.value': '用於互動地圖的Mapbox GL JS',
   'about.technical.styling.value': '用於響應式設計的Bootstrap 5',
   'about.technical.data.value': '20+首歌曲的精選數據庫（可擴展）',

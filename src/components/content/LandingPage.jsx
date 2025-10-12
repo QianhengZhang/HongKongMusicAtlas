@@ -23,7 +23,6 @@ const LandingPage = () => {
         
         {/* Overlay content */}
         <div className="landing-overlay">
-          <h1>{t('landing.title', 'Lyriscape of Cantopop')}</h1>
           <p className="subtitle">
             {t('landing.subtitle', 'Explore cultural geography through Cantonese pop music')}
           </p>
