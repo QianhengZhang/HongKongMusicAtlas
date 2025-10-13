@@ -24,7 +24,7 @@ function App() {
   // Initialize translations
   useEffect(() => {
     setTranslations(translations)
-    
+
     // Load saved language preference
     const savedLanguage = localStorage.getItem('preferred-language')
     if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'zh')) {

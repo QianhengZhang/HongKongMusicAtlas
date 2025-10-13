@@ -39,7 +39,7 @@ export const LanguageProvider = ({ children }) => {
   const t = (key, fallback = '', variables = {}) => {
     const translation = state.translations[state.language]?.[key];
     let text = translation || fallback || key;
-    
+
     // Replace placeholders with variables
     if (variables && Object.keys(variables).length > 0) {
       Object.keys(variables).forEach(variable => {
@@ -47,7 +47,7 @@ export const LanguageProvider = ({ children }) => {
         text = text.replace(new RegExp(placeholder, 'g'), variables[variable]);
       });
     }
-    
+
     return text;
   };
 
