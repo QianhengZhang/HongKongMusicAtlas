@@ -397,29 +397,6 @@ const DiscoverLyrics = () => {
           <div className="mb-4">
             <h6 className="mb-3">{t.step2}</h6>
             
-            {/* Location Filter */}
-            <div className="mb-3">
-              <Form.Select
-                value={selectedLocations.length > 0 ? selectedLocations[0] : ''}
-                onChange={(e) => {
-                  console.log('Location changed:', e.target.value);
-                  if (e.target.value) {
-                    setSelectedLocations([e.target.value]);
-                  } else {
-                    setSelectedLocations([]);
-                  }
-                }}
-                aria-label={t.location}
-              >
-                <option value="">{t.location}</option>
-                {availableOptions.locations.map((location, index) => (
-                  <option key={index} value={location}>
-                    {location}
-                  </option>
-                ))}
-              </Form.Select>
-            </div>
-
             {/* Artist Filter */}
             <div className="mb-3">
               <Form.Select
@@ -460,6 +437,29 @@ const DiscoverLyrics = () => {
                 {availableOptions.decades.map((decade, index) => (
                   <option key={index} value={decade}>
                     {decade}
+                  </option>
+                ))}
+              </Form.Select>
+            </div>
+
+            {/* Location Filter */}
+            <div className="mb-3">
+              <Form.Select
+                value={selectedLocations.length > 0 ? selectedLocations[0] : ''}
+                onChange={(e) => {
+                  console.log('Location changed:', e.target.value);
+                  if (e.target.value) {
+                    setSelectedLocations([e.target.value]);
+                  } else {
+                    setSelectedLocations([]);
+                  }
+                }}
+                aria-label={t.location}
+              >
+                <option value="">{t.location}</option>
+                {availableOptions.locations.map((location, index) => (
+                  <option key={index} value={location}>
+                    {location}
                   </option>
                 ))}
               </Form.Select>

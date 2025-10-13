@@ -500,7 +500,7 @@
 
 /* Marker Popup Styles */
 .marker-popup {
-  max-width: 380px;
+  max-width: 320px;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -521,7 +521,7 @@
   backdrop-filter: blur(10px);
   animation: popupFadeIn 0.3s ease-out;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 350px; /* doubled width for web */
+  width: 300px; /* reduced width for better fit */
   max-width: 95vw; /* responsive on smaller screens */
   display: inline-block;
 }
@@ -645,9 +645,9 @@
   margin-bottom: 0;
 }
 
-.info-row:hover {
+/* .info-row:hover {
   transform: translateX(4px);
-}
+} */
 
 .info-icon {
   font-size: 16px;
@@ -718,7 +718,7 @@
   transition: left 0.5s ease;
 }
 
-.lyrics-text:hover::before {
+/* .lyrics-text:hover::before {
   left: 100%;
 }
 
@@ -726,28 +726,39 @@
   background: rgba(102, 126, 234, 0.08);
   border-left-color: #5a6fd8;
   transform: translateX(2px);
-}
+} */
 
 /* Popup Actions */
 .popup-actions {
-  padding-top: 2px;
+  padding: 0;
+  margin: 0;
 }
 
 .youtube-btn {
   background: white;
   color: #33414e;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
-  font-weight: 500;
+  width: 60%;
+  height: 60px;
+  display: block;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/images/youtube button.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px; /* Hide text but keep it for accessibility */
+  overflow: hidden;
 }
 
 .youtube-btn:hover {
-  background: #f8f9fa;
+  background-color: #f8f9fa;
+  background-image: url('/images/youtube button.webp');
   color: #33414e;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -1091,19 +1102,29 @@
 }
 
 .youtube-btn {
-  display: inline-block;
-  background: #33414e;
+  display: block;
+  background: white;
   color: #33414e;
   text-decoration: none;
-  padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.8rem, 2vw, 1rem);
-  border-radius: 8px;
-  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  border-radius: 0;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
   font-weight: 500;
+  width: 70%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/images/youtube button.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+  overflow: hidden;
 }
 
 .youtube-btn:hover {
-  background: #5483B3;
+  background-color: #f8f9fa;
+  background-image: url('/images/youtube button.webp');
   color: white;
   text-decoration: none;
   transform: translateY(-1px);
@@ -1113,6 +1134,8 @@
 /* Center YouTube button */
 .popup-actions {
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 /* Audio Preview Styles */
@@ -1431,7 +1454,7 @@
   }
 
   .marker-popup {
-    max-width: 340px;
+    max-width: 300px;
   }
 
   .popup-header {
@@ -1517,7 +1540,7 @@
   }
 
   .marker-popup {
-    max-width: 320px;
+    max-width: 280px;
   }
 
   .popup-header {
@@ -1591,13 +1614,16 @@
 
   /* Mobile popup improvements */
   .youtube-btn {
-    padding: 10px 12px;
+    padding: 10px 16px;
     font-size: 0.85rem;
+    width: 70%;
+    height: 50px;
+    margin: 0 auto;
   }
 
   .popup-actions {
-    margin-top: 8px;
-    padding-top: 8px;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -1862,12 +1888,12 @@
   box-shadow: 0 2px 8px rgba(5, 38, 89, 0.1);
 }
 
-.lyrics-content:hover {
+/* .lyrics-content:hover {
   background: #E6E6E6;
   border-left-color: #5483B3;
   box-shadow: 0 4px 12px rgba(5, 38, 89, 0.15);
   transform: translateX(2px);
-}
+} */
 
 .lyrics-content::before {
   content: '"';

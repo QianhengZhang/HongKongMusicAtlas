@@ -53,6 +53,7 @@ function App() {
               </a>
             </div>
             <ul className="nav-links">
+              <li><a href="#/map" className="nav-link">{t('nav.map', 'Map')}</a></li>
               <li><a href="#/explore" className="nav-link">{t('nav.explore', 'Explore Music')}</a></li>
               <li><a href="#/about" className="nav-link">{t('nav.about', 'About')}</a></li>
             </ul>

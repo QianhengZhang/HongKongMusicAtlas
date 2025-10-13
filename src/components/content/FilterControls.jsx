@@ -104,24 +104,6 @@ const FilterControls = () => {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="location-select">
-{t('filter.location', 'Location')}
-            </Form.Label>
-            <Form.Select
-              id="location-select"
-              aria-label={t('filter.location', 'Filter by location')}
-              value={filters?.district || ''}
-              onChange={(e) => handleFilterChange('district', e.target.value)}
-              title={t('filter.location', 'Filter by location')}
-            >
-              <option value="">{t('filter.locationAll', 'All Locations')}</option>
-              {filterOptions.districts.map(district => (
-                <option key={district} value={district}>{district}</option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group className="mb-3">
             <Form.Label htmlFor="decade-select">
 {t('filter.decade', 'Decade')}
             </Form.Label>
@@ -135,6 +117,24 @@ const FilterControls = () => {
               <option value="">{t('filter.decadeAll', 'All Decades')}</option>
               {filterOptions.decades.map(decade => (
                 <option key={decade} value={decade}>{decade}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+<Form.Label htmlFor="location-select">
+{t('filter.location', 'Location')}
+            </Form.Label>
+            <Form.Select
+              id="location-select"
+              aria-label={t('filter.location', 'Filter by location')}
+              value={filters?.district || ''}
+              onChange={(e) => handleFilterChange('district', e.target.value)}
+              title={t('filter.location', 'Filter by location')}
+            >
+              <option value="">{t('filter.locationAll', 'All Locations')}</option>
+              {filterOptions.districts.map(district => (
+                <option key={district} value={district}>{district}</option>
               ))}
             </Form.Select>
           </Form.Group>
