@@ -23,17 +23,17 @@ const LandingPage = () => {
         
         {/* Overlay content */}
         <div className="landing-overlay">
+          <h1 className="title">
+            {t('landing.title', 'From the harbor of Hong Kong to the skyline of New York, discover how Cantonese pop songs map emotions onto real places — from Hong Kong to beyond.')}
+          </h1>
           <p className="subtitle">
-            {t('landing.subtitle', 'Explore cultural geography through Cantonese pop music')}
-          </p>
-          <p className="description">
-            {t('landing.description', 'Discover how Cantopop songs reference specific neighborhoods, landmarks, and streets across Hong Kong and far beyond. Each pin on the map represents a lyrical reference, creating a dynamic storytelling experience of the city\'s musical landscape.')}
+            {t('landing.subtitle', 'Discover how Cantopop captures changing cityscape, where every lyric is a trace of place, memory, and emotion. Each pin on the map represents a song that turns geography into melody.')}
           </p>
           <Button
             onClick={handleGetStarted}
             className="cta-button"
           >
-            {t('landing.getStarted', 'Start Exploring')}
+            {t('landing.getStarted', 'Start the lyrical journey')}
           </Button>
         </div>
       </div>

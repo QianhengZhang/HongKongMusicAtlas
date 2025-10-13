@@ -6,10 +6,10 @@ export const zh = {
   'nav.about': '關於',
   
   // Landing Page
-  'landing.title': '',
-  'landing.subtitle': '從香港出發，探索粵語流行曲里的世界',
-  'landing.description': '發現粵語流行歌曲如何引用香港特定的社區、地標和街道。地圖上的每個標記都代表一個歌詞引用，創造出城市音樂景觀的動態敘事體驗。',
-  'landing.getStarted': '開始探索',
+  'landing.title': '歡迎來到粵語流行曲的歌詞景觀！',
+  'landing.subtitle': '從香港海港到紐約天際線，探索粵語流行歌曲如何捕捉變化的城市景觀，將情感映射到從香港到更遠地方的真實地點。地圖上的每個標記都代表一首將地理轉化為旋律的歌曲。',
+  'landing.description': '從香港海港到紐約天際線，探索粵語流行歌曲如何捕捉變化的城市景觀，將情感映射到從香港到更遠地方的真實地點。地圖上的每個標記都代表一首將地理轉化為旋律的歌曲。',
+  'landing.getStarted': '開始歌詞之旅',
   'landing.photoCredit': '圖片來源於網絡',
   'landing.discoverTitle': '您將發現什麼',
   'landing.songStories': '歌曲故事',

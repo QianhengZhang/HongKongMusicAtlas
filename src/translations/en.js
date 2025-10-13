@@ -6,10 +6,10 @@ export const en = {
   'nav.about': 'About',
   
   // Landing Page
-  'landing.title': '',
-  'landing.subtitle': 'Explore the world of Cantonese pop music through the places it sings about, from Hong Kong to beyond.',
-  'landing.description': 'Discover how Canto-pop songs reference specific neighborhoods, landmarks, and streets across the world. Each pin on the map represents a lyrical reference, creating storytelling experience of the city\'s musical landscape.',
-  'landing.getStarted': 'Start Exploring',
+  'landing.title': 'Welcome to Lyriscape of Cantopop!',
+  'landing.subtitle': 'From the harbor of Hong Kong to the skyline of New York, discover how Cantonese pop songs captures changing cityscape, mapping emotions onto real places from Hong Kong to beyond. Each pin on the map represents a song that turns geography into melody.',
+  'landing.description': 'From the harbor of Hong Kong to the skyline of New York, discover how Cantonese pop songs captures changing cityscape, mapping emotions onto real places from Hong Kong to beyond. Each pin on the map represents a song that turns geography into melody.',
+  'landing.getStarted': 'Start the lyrical journey',
   'landing.photoCredit': 'Photo from internet',
   'landing.discoverTitle': 'What You\'ll Discover',
   'landing.songStories': 'Song Stories',

@@ -150,8 +150,8 @@
   text-align: center;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  max-width: 600px;
-  width: 90%;
+  max-width: 800px;
+  width: 95%;
   z-index: 10;
 }
 
@@ -160,6 +160,14 @@
   margin-bottom: 1.5rem;
   color: #021024;
   font-weight: normal !important;
+}
+
+.landing-overlay .title {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  margin-bottom: 1.5rem;
+  color: #021024;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .landing-overlay .subtitle,
@@ -742,13 +750,13 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 60%;
-  height: 60px;
+  width: 35%;
+  height: 25px;
   display: block;
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-  background-image: url('/images/youtube button.webp');
+  background-image: url('/images/music button.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -758,7 +766,7 @@
 
 .youtube-btn:hover {
   background-color: #f8f9fa;
-  background-image: url('/images/youtube button.webp');
+  background-image: url('/images/music button.png');
   color: #33414e;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -1110,11 +1118,11 @@
   font-size: 0.9rem;
   transition: all 0.3s ease;
   font-weight: 500;
-  width: 70%;
-  height: 40px;
+  width: 35%;
+  height: 25px;
   align-items: center;
   justify-content: center;
-  background-image: url('/images/youtube button.webp');
+  background-image: url('/images/music button.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -1124,7 +1132,7 @@
 
 .youtube-btn:hover {
   background-color: #f8f9fa;
-  background-image: url('/images/youtube button.webp');
+  background-image: url('/images/music button.png');
   color: white;
   text-decoration: none;
   transform: translateY(-1px);
@@ -1517,6 +1525,16 @@
     font-size: 1rem;
   }
 
+  .landing-overlay {
+    max-width: 95%;
+    width: 95%;
+    padding: 2rem;
+  }
+
+  .landing-overlay .title {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+  }
+
   .features-grid {
     gap: 0.75rem;
   }
@@ -1614,10 +1632,10 @@
 
   /* Mobile popup improvements */
   .youtube-btn {
-    padding: 10px 16px;
-    font-size: 0.85rem;
-    width: 70%;
-    height: 50px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    width: 35%;
+    height: 20px;
     margin: 0 auto;
   }
 
