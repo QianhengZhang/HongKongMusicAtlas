@@ -4,7 +4,7 @@ import { useLanguage } from '../../contexts';
 
 const AboutPage = () => {
   const { t } = useLanguage();
-  
+
   return (
     <div className="about-page-container">
       <div className="about-background-overlay"></div>
@@ -96,7 +96,7 @@ const AboutPage = () => {
                 </Card.Body>
               </Card>
             </Col>
-            
+
             <Col md={12} className="text-center mt-5">
               <p style={{ color: 'white', margin: 0 }}>
                 © 2025 Lyriscape of Cantopop.

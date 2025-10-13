@@ -76,23 +76,23 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
 
   // Get language-specific content
   const isChinese = languageContext && languageContext.language === 'zh';
-  
+
   // Song title - use Chinese or English based on language
   const songTitle = isChinese ? (data.song || 'Unknown Song') : (data.song_en || data.song || 'Unknown Song');
-  
+
   // Artist - use Chinese or English based on language
   const artistName = isChinese ? (data.Singer || 'Unknown Artist') : (data.singer_en || data.Singer || 'Unknown Artist');
-  
+
   // For YouTube search, always use Chinese song title + artist name
   const chineseSongTitle = data.song || 'Unknown Song';
   const chineseArtistName = data.Singer || 'Unknown Artist';
-  
+
   // Location - use Chinese or English based on language
   const locationName = isChinese ? (data.location_name || 'Unknown Location') : (data.location_name_en || data.location_name || 'Unknown Location');
-  
+
   // Album - use appropriate language version
   const albumName = data.album || 'Unknown Album';
-  
+
   // Lyrics - use Chinese or English based on language
   const lyricsText = isChinese ? (data.lyrics || 'No lyrics available') : (data.lyrics_en || data.lyrics || 'No lyrics available');
   // Convert \n to actual newlines
@@ -129,9 +129,9 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
         </div>
 
         <div class="popup-actions">
-          <a href="javascript:void(0)" 
-             onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent(`${chineseSongTitle} ${chineseArtistName}`)}', '_blank')" 
-             class="youtube-btn" 
+          <a href="javascript:void(0)"
+             onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent(`${chineseSongTitle} ${chineseArtistName}`)}', '_blank')"
+             class="youtube-btn"
              title="${t('song.listenYouTube', 'Listen on YouTube')}"
              style="color: #000000; background-color: #ffffff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block; font-weight: bold;">
              ${t('song.listenYouTube', 'Listen on YouTube')}
@@ -179,10 +179,10 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
         zoomLevel: zoomLevel,
         coordinates: coordinates
       });
-      
+
       // Record the time of marker click to prevent auto-fit from overriding
       window.lastMarkerClickTime = Date.now();
-      
+
       window.setMapCenter(coordinates, zoomLevel);
     }
 
@@ -190,6 +190,7 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
     if (currentPopup === popup && currentPopup.isOpen()) {
       currentPopup.remove();
       currentPopup = null;
+      window.currentPopup = null;
       return;
     }
 
@@ -201,11 +202,13 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
     // Open new popup
     popup.setLngLat(coordinates).addTo(map);
     currentPopup = popup;
+    window.currentPopup = popup; // Store in global variable for Map component to access
 
     // Set up popup close event to clear current popup reference
     popup.on('close', () => {
       if (currentPopup === popup) {
         currentPopup = null;
+        window.currentPopup = null;
       }
     });
   });
@@ -228,11 +231,13 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
     // Open popup for this marker
     popup.setLngLat(coordinates).addTo(map);
     currentPopup = popup;
+    window.currentPopup = popup; // Store in global variable for Map component to access
 
     // Ensure cleanup on close
     popup.on('close', () => {
       if (currentPopup === popup) {
         currentPopup = null;
+        window.currentPopup = null;
       }
     });
   };
@@ -243,6 +248,7 @@ MusicMarker.addToMap = (data, map, parseLocation, languageContext = null) => {
     if (currentPopup && currentPopup.isOpen()) {
       currentPopup.remove();
       currentPopup = null;
+      window.currentPopup = null;
     }
 
     // Remove the marker from the map

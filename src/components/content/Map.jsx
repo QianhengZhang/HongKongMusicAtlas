@@ -31,7 +31,7 @@ const Map = () => {
   const handleFormSubmit = async (formData) => {
     try {
       console.log('Submitting form data:', formData);
-      
+
       // Make API call to backend
       const response = await fetch('http://localhost:3001/api/submit-lyric', {
         method: 'POST',
@@ -40,22 +40,22 @@ const Map = () => {
         },
         body: JSON.stringify(formData)
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Submission failed');
       }
-      
+
       const result = await response.json();
       console.log('Submission successful:', result);
-      
+
       // Add the new marker to the existing markers
       const newMarker = {
         ...result.data,
         location_x: result.data.location_x,
         location_y: result.data.location_y
       };
-      
+
       // Create a new marker component
       const markerElement = document.createElement('div');
       markerElement.className = 'music-marker';
@@ -64,35 +64,35 @@ const Map = () => {
           <i class="fas fa-music"></i>
         </div>
       `;
-      
+
       const marker = new mapboxgl.Marker(markerElement)
         .setLngLat([parseFloat(result.data.location_x), parseFloat(result.data.location_y)])
         .addTo(mapInstanceRef.current);
-      
+
       // Add click handler for the new marker
       markerElement.addEventListener('click', () => {
         // Handle marker click - show popup or navigate
         console.log('New marker clicked:', newMarker);
       });
-      
+
       // Store marker reference for cleanup
       const markerWithCleanup = {
         ...marker,
         cleanup: () => marker.remove(),
         data: newMarker
       };
-      
+
       setMusicMarkers(prev => [...prev, markerWithCleanup]);
-      
+
       // Fly to the new marker
       flyToNewMarker(parseFloat(result.data.location_x), parseFloat(result.data.location_y));
-      
+
       // Show success message
-      alert(languageContext.language === 'zh' 
-        ? '已提交，歌词標記已顯示在地圖上' 
+      alert(languageContext.language === 'zh'
+        ? '已提交，歌词標記已顯示在地圖上'
         : 'Thanks! Your lyric has been added to the map.'
       );
-      
+
     } catch (error) {
       console.error('Error submitting form:', error);
       throw error;
@@ -114,7 +114,7 @@ const Map = () => {
   // Handle map click for coordinate selection
   const handleMapClick = (mode) => {
     setIsMapClickMode(mode);
-    
+
     if (mode && mapInstanceRef.current) {
       const handleClick = (e) => {
         const { lng, lat } = e.lngLat;
@@ -122,9 +122,9 @@ const Map = () => {
         // You can pass these coordinates back to the form
         console.log('Map clicked at:', lng, lat);
       };
-      
+
       mapInstanceRef.current.on('click', handleClick);
-      
+
       // Store the handler for cleanup
       mapInstanceRef.current._coordinateClickHandler = handleClick;
     } else if (mapInstanceRef.current && mapInstanceRef.current._coordinateClickHandler) {
@@ -240,7 +240,7 @@ const Map = () => {
       setMusicMarkers(newMarkers);
       // Update global reference for external triggering (e.g., Play Random)
       window.musicMarkers = newMarkers;
-      
+
       // Auto fly/fit behavior per requirements
       // Only run when at least one filter is active to avoid region-change recenter being overridden
       const hasActiveFilters = Boolean(currentFilters.artist || currentFilters.district || currentFilters.decade);
@@ -324,8 +324,8 @@ const Map = () => {
     console.log('setMapCenter called with:', { lngLat, zoom });
     if (mapInstanceRef.current) {
       console.log('Flying to:', { center: lngLat, zoom: zoom });
-      mapInstanceRef.current.flyTo({ 
-        center: lngLat, 
+      mapInstanceRef.current.flyTo({
+        center: lngLat,
         zoom: zoom,
         duration: 1000,
         essential: true
@@ -350,7 +350,7 @@ const Map = () => {
       if (window.updateMarkersTimeout) {
         clearTimeout(window.updateMarkersTimeout);
       }
-      
+
       // Debounce the update to prevent rapid successive calls
       window.updateMarkersTimeout = setTimeout(() => {
         console.log('Updating markers with filters:', filters);
@@ -368,7 +368,7 @@ const Map = () => {
       const map = new mapboxgl.Map({
         container: mapRef.current,
         style: 'mapbox://styles/essstherc/cmgj2ja1t001001sce03d5pf8',
-        center: [114.160932, 22.334575], 
+        center: [114.160932, 22.334575],
         zoom: 10.77,
       });
 
@@ -394,9 +394,23 @@ const Map = () => {
         loadMusicMarkers();
       });
 
-      // Add map click event
+      // Add map click event to close popups when clicking on map (not on markers)
       map.on('click', (e) => {
         console.log('Map clicked at:', e.lngLat);
+
+        // Check if the click was on a marker element
+        // If so, don't close the popup (let the marker handle it)
+        const clickedElement = e.originalEvent.target;
+        const isMarkerClick = clickedElement.closest('.mapboxgl-marker') ||
+                             clickedElement.closest('.music-marker') ||
+                             clickedElement.classList.contains('music-marker') ||
+                             clickedElement.classList.contains('marker-icon');
+
+        // Only close popup if we're not clicking on a marker
+        if (!isMarkerClick && window.currentPopup && window.currentPopup.isOpen && window.currentPopup.isOpen()) {
+          window.currentPopup.remove();
+          window.currentPopup = null;
+        }
       });
 
       return () => {
@@ -439,22 +453,22 @@ const Map = () => {
 
       {/* Zoom Controls */}
       <div className="zoom-controls">
-        <button 
-          className="zoom-btn zoom-in" 
+        <button
+          className="zoom-btn zoom-in"
           onClick={handleZoomIn}
           title="Zoom In"
         >
           +
         </button>
-        <button 
-          className="zoom-btn zoom-out" 
+        <button
+          className="zoom-btn zoom-out"
           onClick={handleZoomOut}
           title="Zoom Out"
         >
           −
         </button>
-        <button 
-          className="zoom-btn reset-btn" 
+        <button
+          className="zoom-btn reset-btn"
           onClick={handleReset}
           title="Reset to Hong Kong"
         >
@@ -478,7 +492,7 @@ const Map = () => {
           <div>Loading music markers...</div>
         </div>
       )}
-      
+
       {/* Add Lyric Button */}
       <Button
         className="add-lyric-btn"
