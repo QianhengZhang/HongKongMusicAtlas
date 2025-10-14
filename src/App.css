@@ -1718,6 +1718,10 @@
     font-size: clamp(1.2rem, 4vw, 1.6rem);
   }
 
+  .landing-overlay .subtitle {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  }
+
   .features-grid {
     gap: 0.75rem;
   }
