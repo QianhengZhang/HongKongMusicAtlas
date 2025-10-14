@@ -1603,6 +1603,10 @@
   }
 
   /* 手机端filter字体调整 */
+  .drawer-content {
+    padding-left: 2rem !important;
+  }
+
   .drawer-content h4,
   .drawer-content h5,
   .drawer-content .form-control,
@@ -1613,7 +1617,7 @@
   .drawer-content label,
   .drawer-content select,
   .drawer-content option {
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
   }
 
   .drawer-content h4 {
@@ -1626,7 +1630,7 @@
 
   /* 更具体的选择器 - 只在手机端 */
   .drawer .drawer-content * {
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
   }
 
   .drawer .drawer-content h4 {
@@ -1669,6 +1673,15 @@
   .main-navigation {
     padding: 1rem 1rem;
     gap: 0.1rem;
+  }
+
+  /* 超小屏幕drawer content padding调整 */
+  .drawer-content {
+    padding-left: 0.5rem !important;
+  }
+
+  .app-typography .drawer-content {
+    padding-left: 2rem !important;
   }
 
   .nav-brand h1 {
@@ -1903,6 +1916,12 @@
   .popup-actions {
     margin: 0;
     padding: 0;
+  }
+
+  /* Mobile zoom controls positioning */
+  .zoom-controls {
+    top: 10px;
+    left: 10px;
   }
 }
 
