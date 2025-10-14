@@ -237,9 +237,17 @@
   text-align: center;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  max-width: 800px;
-  width: 95%;
+  max-width: 500px;
+  width: 50%;
   z-index: 10;
+}
+
+/* Desktop specific styles for landing overlay */
+@media (min-width: 769px) {
+  .landing-overlay {
+    width: 50% !important;
+    max-width: 500px !important;
+  }
 }
 
 .landing-overlay h1 {
@@ -1701,8 +1709,8 @@
   }
 
   .landing-overlay {
-    max-width: 95%;
-    width: 95%;
+    max-width: 80%;
+    width: 80%;
     padding: 2rem;
   }
 
