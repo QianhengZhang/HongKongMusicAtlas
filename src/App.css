@@ -45,7 +45,7 @@
   
   /* 让导航链接和语言选择器作为一个整体 */
   .nav-links {
-    margin-right: 1rem;
+    margin-right: 0;
   }
   
   .nav-actions {
@@ -55,6 +55,14 @@
   /* 保持固定的导航链接间距 */
   .nav-links {
     gap: 1.5rem;
+  }
+  
+  /* 将语言选择器紧贴在导航链接后面 */
+  .nav-actions {
+    margin-left: 1.5rem !important;
+    display: inline-flex !important;
+    position: relative;
+    left: -200px;
   }
 }
 
@@ -66,15 +74,18 @@
   }
 
   .main-navigation {
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
+    padding: 1rem 1rem;
+    padding-left: 1.5rem;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   .nav-brand {
     width: 100%;
     text-align: center;
+    margin-bottom: 0.5rem;
   }
 
   .nav-links {
@@ -82,30 +93,23 @@
     gap: 0.75rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
+    padding-right: 0.5rem;
   }
 
   .nav-actions {
     justify-content: center;
+    margin-left: 0.25rem;
+    padding-left: 0;
   }
 
-  /* 创建一个包装器来包含导航链接和语言选择器 */
+  /* 让导航链接和语言选择器在同一行 */
   .nav-links,
   .nav-actions {
     display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
-  }
-
-  .nav-links {
-    margin-right: 0.5rem;
-    margin-bottom: 0;
-  }
-
-  /* 如果空间不够，让导航元素换行 */
-  .nav-links + .nav-actions {
-    margin-left: 0.5rem;
   }
 
   .nav-link {
@@ -156,13 +160,13 @@
   margin: 0;
   padding: 0;
   gap: 1.5rem;
-  margin-right: 1rem;
+  margin-right: 0;
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0;
 }
 
 .nav-link {
@@ -985,9 +989,9 @@
   background: transparent !important;
   border: 1px solid white !important;
   color: white !important;
-  padding: 0.5rem 1rem !important;
+  padding: 0.15rem 0.6rem !important;
   border-radius: 6px !important;
-  font-size: 0.9rem !important;
+  font-size: 1rem !important;
   transition: all 0.3s ease !important;
 }
 
@@ -1515,7 +1519,7 @@
 .about-content h1 {
   text-align: center;
   margin-bottom: 3rem;
-  color: white;
+  color: white !important;
   font-size: clamp(2rem, 5vw, 2.5rem);
 }
 
@@ -1659,12 +1663,12 @@
 
 @media (max-width: 480px) {
   .app-header {
-    padding: 0.75rem 0;
+    padding: 0.25rem 0;
   }
 
   .main-navigation {
-    padding: 0 0.5rem;
-    gap: 0.5rem;
+    padding: 1rem 1rem;
+    gap: 0.1rem;
   }
 
   .nav-brand h1 {
@@ -1722,12 +1726,39 @@
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   }
 
+  /* About page mobile title styling - only for mobile */
+  .about-content h1 {
+    font-size: clamp(1rem, 3.5vw, 1.4rem);
+    line-height: 1.2;
+    color: white !important;
+  }
+
+  /* Show mobile title on mobile, hide desktop title */
+  .about-content .mobile-title {
+    display: block;
+  }
+  
+  .about-content .desktop-title {
+    display: none;
+  }
+
+
   .features-grid {
     gap: 0.75rem;
   }
 
+/* Desktop styles for About page title */
+@media (min-width: 769px) {
+  .about-content .mobile-title {
+    display: none;
+  }
+  
+  .about-content .desktop-title {
+    display: block;
+  }
+
   .feature-card {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .filter-controls {
@@ -1771,7 +1802,7 @@
   }
 
   .drawer-content h4 {
-    font-size: 1rem !important;
+    font-size: 0.5rem !important;
   }
 
   .drawer-content h5 {
@@ -1873,6 +1904,7 @@
     margin: 0;
     padding: 0;
   }
+}
 
 /* Explore Music Page Styles */
 .explore-header {

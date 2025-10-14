@@ -11,7 +11,10 @@ const AboutPage = () => {
       <Container className="py-5 about-content">
       <Row className="justify-content-center">
         <Col lg={10}>
-          <h1 className="text-center mb-5">Walk the City, Follow the Lyrics</h1>
+          <h1 className="text-center mb-5">
+            <span className="mobile-title">Walk the City,<br />Follow the Lyrics</span>
+            <span className="desktop-title">Walk the City, Follow the Lyrics</span>
+          </h1>
 
           <Row>
             <Col md={6} className="mb-4">
