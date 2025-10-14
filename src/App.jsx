@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import './App.css'
+import './typography-responsive.css'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useApp, useLanguage } from './contexts'
@@ -43,7 +44,7 @@ function App() {
 
   return (
     <HashRouter>
-      <div className="app-layout">
+      <div className="app-layout app-typography">
         {/* Header */}
         <nav className="app-header">
           <div className="main-navigation">
