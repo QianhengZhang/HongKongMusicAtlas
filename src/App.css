@@ -38,25 +38,25 @@
   .main-navigation {
     justify-content: space-between;
   }
-  
+
   .nav-brand {
     flex: 0 0 auto;
   }
-  
+
   /* 让导航链接和语言选择器作为一个整体 */
   .nav-links {
     margin-right: 0;
   }
-  
+
   .nav-actions {
     margin-left: 0;
   }
-  
+
   /* 保持固定的导航链接间距 */
   .nav-links {
     gap: 1.5rem;
   }
-  
+
   /* 将语言选择器紧贴在导航链接后面 */
   .nav-actions {
     margin-left: 1.5rem !important;
@@ -657,7 +657,7 @@
   backdrop-filter: blur(10px);
   animation: popupFadeIn 0.3s ease-out;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 300px; /* reduced width for better fit */
+  /* width: 300px; reduced width for better fit */
   max-width: 95vw; /* responsive on smaller screens */
   display: inline-block;
 }
@@ -918,7 +918,7 @@
   position: absolute !important;
   top: 200px !important;
   right: 15px !important;
-  transform: none !important; 
+  transform: none !important;
   margin: 0 !important;
   border: none !important;
   background: none !important;
@@ -1750,7 +1750,7 @@
   .about-content .mobile-title {
     display: block;
   }
-  
+
   .about-content .desktop-title {
     display: none;
   }
@@ -1765,7 +1765,7 @@
   .about-content .mobile-title {
     display: none;
   }
-  
+
   .about-content .desktop-title {
     display: block;
   }
