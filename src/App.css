@@ -36,11 +36,12 @@
 /* 桌面端：让导航链接和语言选择器作为一个整体 */
 @media (min-width: 769px) {
   .main-navigation {
-    justify-content: space-between;
+    justify-content: flex-end;
   }
 
   .nav-brand {
     flex: 0 0 auto;
+    margin-right: auto;
   }
 
   /* 让导航链接和语言选择器作为一个整体 */
@@ -62,7 +63,7 @@
     margin-left: 1.5rem !important;
     display: inline-flex !important;
     position: relative;
-    left: -200px;
+    left: 0;
   }
 }
 
@@ -427,7 +428,7 @@
 /* Collapsible Drawer */
 .drawer-toggle {
   position: fixed;
-  top: 50%;
+  top: 55%;
   right: 20px;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.7);
@@ -458,7 +459,7 @@
 
 .drawer {
   position: fixed;
-  top: 50%;
+  top: 55%;
   right: -350px;
   width: 350px;
   height: auto;
