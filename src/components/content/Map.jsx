@@ -206,9 +206,16 @@ const Map = () => {
         }
 
         // Filter by district (using appropriate language version)
+        // If district is specified, use it; otherwise fall back to region filter
         if (currentFilters.district) {
           const locationField = languageContext.language === 'zh' ? item.location_name : (item.location_name_en || item.location_name);
           if (locationField !== currentFilters.district) {
+            return false;
+          }
+        } else if (currentFilters.region) {
+          // If no specific district is selected, filter by region
+          const itemRegion = languageContext.language === 'zh' ? item.region : (item.region_en || item.region);
+          if (itemRegion !== currentFilters.region) {
             return false;
           }
         }
@@ -242,9 +249,16 @@ const Map = () => {
       window.musicMarkers = newMarkers;
 
       // Auto fly/fit behavior per requirements
-      // Only run when at least one filter is active to avoid region-change recenter being overridden
+      // Only auto-fit when a specific location (district) is selected, not just region
+      // This prevents unwanted zoom-out when only region + artist filters are active
+      const hasSpecificLocation = Boolean(currentFilters.district);
       const hasActiveFilters = Boolean(currentFilters.artist || currentFilters.district || currentFilters.decade);
-      if (mapInstanceRef.current && hasActiveFilters) {
+
+      // Only auto-fit if we have a specific location selected, or if we have filters but no region filter
+      // (region filter means we're already in a region view, so don't override it)
+      const shouldAutoFit = hasSpecificLocation || (hasActiveFilters && !currentFilters.region);
+
+      if (mapInstanceRef.current && shouldAutoFit) {
         const validCoords = filteredData
           .map(item => parseLocation(item.location_x, item.location_y))
           .filter(lngLat => Array.isArray(lngLat) && lngLat.length === 2 && !isNaN(lngLat[0]) && !isNaN(lngLat[1]));
@@ -297,9 +311,11 @@ const Map = () => {
             if (mapInstanceRef.current.isEasing()) {
               mapInstanceRef.current.stop();
             }
+            // Use higher maxZoom when we have a specific location, lower when just artist/decade filters
+            const maxZoom = hasSpecificLocation ? 12 : 6;
             mapInstanceRef.current.fitBounds(bounds, {
               padding: 100,
-              maxZoom: 6,
+              maxZoom: maxZoom,
               duration: 1200,
               easing: t => 1 - Math.pow(1 - t, 3)
             });

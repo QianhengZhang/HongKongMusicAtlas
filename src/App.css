@@ -633,9 +633,12 @@
 
 /* Marker Popup Styles */
 .marker-popup {
-  max-width: 320px;
+  max-width: min(320px, 90vw);
+  width: 100%;
   padding: 0;
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
 }
 
 /* Music Popup Styles - Ensure it appears above everything */
@@ -645,12 +648,26 @@
   top: 45% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Remove default Mapbox popup container padding/margins */
+.music-popup.mapboxgl-popup {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.music-popup .mapboxgl-popup-container {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .music-popup .mapboxgl-popup-content {
   z-index: 9999 !important;
   position: relative;
-  padding: 0;
+  padding: 0 !important;
+  margin: 0 !important;
   border-radius: 16px !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -658,9 +675,11 @@
   backdrop-filter: blur(10px);
   animation: popupFadeIn 0.3s ease-out;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  /* width: 300px; reduced width for better fit */
-  max-width: 95vw; /* responsive on smaller screens */
-  display: inline-block;
+  max-width: min(400px, 90vw) !important;
+  width: auto !important;
+  min-width: 0 !important;
+  display: block !important;
+  box-sizing: border-box !important;
 }
 
 /* Hide Mapbox popup tip (pointing arrow) */
@@ -723,18 +742,30 @@
   display: flex;
   align-items: center;
   padding: 16px 20px 12px 20px;
+  margin: 0;
   border-bottom: 1px solid rgba(5, 38, 89, 0.1);
   background: #ffffff;
   border-radius: 12px 12px 0 0;
   color: white;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.popup-title {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .popup-title h4 {
   margin: 0 0 4px 0;
+  padding: 0;
   color: white;
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 700;
   line-height: 1.3;
+  box-sizing: border-box;
 }
 
 .popup-title h4 a {
@@ -752,6 +783,9 @@
   font-size: 0.9rem;
   opacity: 0.9;
   font-weight: 400;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .popup-subtitle a {
@@ -768,14 +802,22 @@
 /* Popup Content */
 .popup-content {
   padding: 16px 20px 20px 20px;
+  margin: 0;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .info-row {
   display: flex;
   align-items: flex-start;
   margin-bottom: 12px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
   transition: transform 0.2s ease;
   text-align: left;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .info-row:last-child {
@@ -917,12 +959,13 @@
   padding: 8px;
   transition: all 0.2s ease;
   position: absolute !important;
-  top: 200px !important;
-  right: 15px !important;
+  top: 12px !important;
+  right: 12px !important;
   transform: none !important;
   margin: 0 !important;
   border: none !important;
   background: none !important;
+  z-index: 10000 !important;
 }
 
 .music-popup .mapboxgl-popup-close-button:hover {
@@ -1592,7 +1635,8 @@
   }
 
   .marker-popup {
-    max-width: 300px;
+    max-width: min(300px, 85vw);
+    width: 100%;
   }
 
   /* 手机端popup居中 */
@@ -1790,7 +1834,12 @@
   }
 
   .marker-popup {
-    max-width: 280px;
+    max-width: min(280px, 80vw);
+    width: 100%;
+  }
+
+  .music-popup .mapboxgl-popup-content {
+    max-width: min(350px, 85vw) !important;
   }
 
   /* 超小屏幕popup居中 */

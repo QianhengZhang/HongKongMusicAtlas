@@ -7,7 +7,8 @@ const initialState = {
   filters: {
     artist: '',
     district: '',
-    decade: ''
+    decade: '',
+    region: '' // Add region filter to support filtering by region when no specific location is selected
   },
   mapCenter: [114.1694, 22.3193], // Hong Kong coordinates
   zoom: 11,

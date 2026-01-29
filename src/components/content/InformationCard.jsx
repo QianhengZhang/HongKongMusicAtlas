@@ -22,8 +22,18 @@ const InformationCard = () => {
           }
 
           // Filter by district/location
-          if (filters.district && item.location_name_en !== filters.district) {
-            return false;
+          // If district is specified, use it; otherwise fall back to region filter
+          if (filters.district) {
+            const locationField = item.location_name_en || item.location_name;
+            if (locationField !== filters.district) {
+              return false;
+            }
+          } else if (filters.region) {
+            // If no specific district is selected, filter by region
+            const itemRegion = item.region_en || item.region;
+            if (itemRegion !== filters.region) {
+              return false;
+            }
           }
 
           // Filter by decade
@@ -51,7 +61,7 @@ const InformationCard = () => {
     calculateVisibleItems();
   }, [filters]);
 
-  const hasActiveFilters = filters.artist || filters.district || filters.decade;
+  const hasActiveFilters = filters.artist || filters.district || filters.decade || filters.region;
 
   return (
     <Card>

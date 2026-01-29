@@ -60,7 +60,8 @@ const FilterControls = () => {
     setFilters({
       artist: '',
       district: '',
-      decade: ''
+      decade: '',
+      region: ''
     });
   };
 

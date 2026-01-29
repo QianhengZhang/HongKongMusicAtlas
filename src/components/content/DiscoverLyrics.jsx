@@ -19,6 +19,13 @@ const getBilingualField = (item, field, language) => {
   }
 };
 
+// Global region constant
+const GLOBAL_REGION = {
+  zh: '全球',
+  en: 'Global',
+  isGlobal: true
+};
+
 // Translation keys
 const translations = {
   en: {
@@ -37,8 +44,9 @@ const translations = {
     noResults: 'No songs found. Try exploring a different place or time.',
     songsIn: 'songs found in',
     for: 'for',
-    resultsSummary: (count, region, decade) => 
-      `${count} songs found in ${region}${decade ? ` for ${decade}` : ''}`
+    global: 'Global',
+    resultsSummary: (count, region, decade) =>
+      `${count} songs found${region ? ` in ${region}` : ''}${decade ? ` for ${decade}` : ''}`
   },
   zh: {
     title: '按地区探索歌词',
@@ -56,8 +64,9 @@ const translations = {
     noResults: '没有找到歌曲，试试探索其他地方或年代。',
     songsIn: '共找到',
     for: '的',
-    resultsSummary: (count, region, decade) => 
-      `在 ${region} 共找到 ${count} 首歌${decade ? `（${decade}）` : ''}`
+    global: '全球',
+    resultsSummary: (count, region, decade) =>
+      `共找到 ${count} 首歌${region ? `（${region}）` : ''}${decade ? `（${decade}）` : ''}`
   }
 };
 
@@ -65,7 +74,7 @@ const DiscoverLyrics = () => {
   const { filters, setFilters } = useMap();
   const { language } = useLanguage();
   const t = translations[language];
-  
+
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedLocations, setSelectedLocations] = useState([]);
@@ -74,7 +83,7 @@ const DiscoverLyrics = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showMoreLocations, setShowMoreLocations] = useState(false);
   const [showMoreArtists, setShowMoreArtists] = useState(false);
-  
+
   const [data, setData] = useState([]);
   const [regions, setRegions] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -85,7 +94,7 @@ const DiscoverLyrics = () => {
       try {
         const musicData = await fetchMusicData();
         setData(musicData);
-        
+
         // Extract unique regions
         const regionMap = new Map();
         musicData.forEach(item => {
@@ -103,13 +112,13 @@ const DiscoverLyrics = () => {
             regionMap.get(key).count++;
           }
         });
-        
+
         const regionsList = Array.from(regionMap.values());
-        
+
         // Custom sort order for regions
         const sortOrder = [
           '香港', 'Hong Kong',
-          '日本', 'Japan', 
+          '日本', 'Japan',
           '亚洲其他', 'Asia (Others)',
           '欧洲', 'Europe',
           '北美洲', 'North America',
@@ -118,11 +127,11 @@ const DiscoverLyrics = () => {
           '北极', 'Arctic',
           '南极洲', 'Antarctica'
         ];
-        
+
         const sortedRegions = regionsList.sort((a, b) => {
           const aIndex = sortOrder.findIndex(item => item === a.zh || item === a.en);
           const bIndex = sortOrder.findIndex(item => item === b.zh || item === b.en);
-          
+
           // If both found, sort by index
           if (aIndex !== -1 && bIndex !== -1) {
             return aIndex - bIndex;
@@ -133,11 +142,11 @@ const DiscoverLyrics = () => {
           // If neither found, sort alphabetically
           return a.zh.localeCompare(b.zh);
         });
-        
+
         setRegions(sortedRegions);
-        
+
         // Set Hong Kong as default selected region
-        const hongKongRegion = regionsList.find(region => 
+        const hongKongRegion = regionsList.find(region =>
           region.zh === '香港' || region.en === 'Hong Kong'
         );
         if (hongKongRegion) {
@@ -148,29 +157,86 @@ const DiscoverLyrics = () => {
         console.error('Error loading data:', error);
       }
     };
-    
+
     loadData();
   }, []);
 
   // Filter data based on selected region
   const regionFilteredData = useMemo(() => {
     if (!selectedRegion) return data;
-    return data.filter(item => 
+    // If Global region is selected, return all data
+    if (selectedRegion.isGlobal) return data;
+    return data.filter(item =>
       item.region === selectedRegion.zh || item.region_en === selectedRegion.en
     );
   }, [data, selectedRegion]);
 
-  // Get available options for step 2
+  // Get available options for step 2 - filtered by current selections to ensure AND logic
   const availableOptions = useMemo(() => {
-    const locations = [...new Set(regionFilteredData.map(item => 
+    // Filter data based on current selections to show only compatible options
+    // This ensures that when location is selected, only artists with songs in that location are shown
+    let filteredForArtists = regionFilteredData;
+    let filteredForLocations = regionFilteredData;
+    let filteredForDecades = regionFilteredData;
+
+    // If location is selected, filter artists/decades to only those available in that location
+    if (selectedLocations.length > 0) {
+      filteredForArtists = filteredForArtists.filter(item => {
+        const itemLocation = getBilingualField(item, 'location_name', language);
+        return selectedLocations.includes(itemLocation);
+      });
+      filteredForDecades = filteredForDecades.filter(item => {
+        const itemLocation = getBilingualField(item, 'location_name', language);
+        return selectedLocations.includes(itemLocation);
+      });
+    }
+
+    // If artist is selected, filter locations/decades to only those available for that artist
+    if (selectedArtists.length > 0) {
+      filteredForLocations = filteredForLocations.filter(item => {
+        const itemArtist = getBilingualField(item, 'Singer', language);
+        return selectedArtists.includes(itemArtist);
+      });
+      filteredForDecades = filteredForDecades.filter(item => {
+        const itemArtist = getBilingualField(item, 'Singer', language);
+        return selectedArtists.includes(itemArtist);
+      });
+    }
+
+    // If decade is selected, filter locations/artists to only those available in that decade
+    if (selectedDecades.length > 0) {
+      filteredForLocations = filteredForLocations.filter(item => {
+        if (item.year) {
+          const year = parseInt(item.year);
+          if (!isNaN(year)) {
+            const itemDecade = `${Math.floor(year / 10) * 10}s`;
+            return selectedDecades.includes(itemDecade);
+          }
+        }
+        return false;
+      });
+      filteredForArtists = filteredForArtists.filter(item => {
+        if (item.year) {
+          const year = parseInt(item.year);
+          if (!isNaN(year)) {
+            const itemDecade = `${Math.floor(year / 10) * 10}s`;
+            return selectedDecades.includes(itemDecade);
+          }
+        }
+        return false;
+      });
+    }
+
+    // Extract unique options from filtered data
+    const locations = [...new Set(filteredForLocations.map(item =>
       getBilingualField(item, 'location_name', language)
     ).filter(Boolean))].sort();
-    
-    const artists = [...new Set(regionFilteredData.map(item => 
+
+    const artists = [...new Set(filteredForArtists.map(item =>
       getBilingualField(item, 'Singer', language)
     ).filter(Boolean))].sort();
-    
-    const decades = [...new Set(regionFilteredData.map(item => {
+
+    const decades = [...new Set(filteredForDecades.map(item => {
       if (item.year) {
         const year = parseInt(item.year);
         if (!isNaN(year)) {
@@ -179,9 +245,9 @@ const DiscoverLyrics = () => {
       }
       return null;
     }).filter(Boolean))].sort();
-    
+
     return { locations, artists, decades };
-  }, [regionFilteredData, language]);
+  }, [regionFilteredData, selectedLocations, selectedArtists, selectedDecades, language]);
 
   // Apply final filters
   const finalFilteredData = useMemo(() => {
@@ -191,13 +257,13 @@ const DiscoverLyrics = () => {
         const itemLocation = getBilingualField(item, 'location_name', language);
         if (!selectedLocations.includes(itemLocation)) return false;
       }
-      
+
       // Artist filter
       if (selectedArtists.length > 0) {
         const itemArtist = getBilingualField(item, 'Singer', language);
         if (!selectedArtists.includes(itemArtist)) return false;
       }
-      
+
       // Decade filter
       if (selectedDecades.length > 0 && item.year) {
         const year = parseInt(item.year);
@@ -208,7 +274,7 @@ const DiscoverLyrics = () => {
           return false;
         }
       }
-      
+
       return true;
     });
   }, [regionFilteredData, selectedLocations, selectedArtists, selectedDecades, language]);
@@ -221,18 +287,23 @@ const DiscoverLyrics = () => {
   // Auto-apply filters to map when selections change
   useEffect(() => {
     if (selectedRegion) {
+      // Get region name in current language
+      const regionName = language === 'zh' ? selectedRegion.zh : selectedRegion.en;
       const newFilters = {
         artist: selectedArtists.length > 0 ? selectedArtists[0] : '',
         district: selectedLocations.length > 0 ? selectedLocations[0] : '',
-        decade: selectedDecades.length > 0 ? selectedDecades[0] : ''
+        decade: selectedDecades.length > 0 ? selectedDecades[0] : '',
+        // Only use region filter if no specific location is selected AND region is not Global
+        region: selectedLocations.length === 0 && !selectedRegion.isGlobal ? regionName : ''
       };
       console.log('Auto-applying filters:', newFilters);
       console.log('Selected artists:', selectedArtists);
       console.log('Selected locations:', selectedLocations);
       console.log('Selected decades:', selectedDecades);
+      console.log('Selected region:', regionName, 'isGlobal:', selectedRegion.isGlobal);
       setFilters(newFilters);
     }
-  }, [selectedArtists, selectedLocations, selectedDecades]);
+  }, [selectedArtists, selectedLocations, selectedDecades, selectedRegion, language]);
 
   // Handle region selection
   const handleRegionSelect = (region) => {
@@ -242,15 +313,19 @@ const DiscoverLyrics = () => {
     setSelectedArtists([]);
     setSelectedDecades([]);
     setSearchTerm('');
-    
+
     // Update map view based on selected region
     if (region) {
       const regionName = language === 'zh' ? region.zh : region.en;
       console.log('Region selected:', regionName);
-      
+
       // Set map view based on selected region
       if (window.setMapCenter) {
-        if (regionName === '香港' || regionName === 'Hong Kong') {
+        if (region.isGlobal) {
+          // For Global, show a world view
+          console.log('Global selected, updating map view to world');
+          window.setMapCenter([0, 20], 2);
+        } else if (regionName === '香港' || regionName === 'Hong Kong') {
           console.log('Hong Kong selected, updating map view');
           window.setMapCenter([114.160932, 22.334575], 10.77);
         } else if (regionName === '日本' || regionName === 'Japan') {
@@ -286,22 +361,22 @@ const DiscoverLyrics = () => {
   const toggleChip = (type, value) => {
     switch (type) {
       case 'location':
-        setSelectedLocations(prev => 
-          prev.includes(value) 
+        setSelectedLocations(prev =>
+          prev.includes(value)
             ? prev.filter(item => item !== value)
             : [...prev, value]
         );
         break;
       case 'artist':
-        setSelectedArtists(prev => 
-          prev.includes(value) 
+        setSelectedArtists(prev =>
+          prev.includes(value)
             ? prev.filter(item => item !== value)
             : [...prev, value]
         );
         break;
       case 'decade':
-        setSelectedDecades(prev => 
-          prev.includes(value) 
+        setSelectedDecades(prev =>
+          prev.includes(value)
             ? prev.filter(item => item !== value)
             : [...prev, value]
         );
@@ -311,10 +386,13 @@ const DiscoverLyrics = () => {
 
   // Apply filters to map
   const handleApply = () => {
+    const regionName = selectedRegion ? (language === 'zh' ? selectedRegion.zh : selectedRegion.en) : '';
     const newFilters = {
       artist: selectedArtists.length === 1 ? selectedArtists[0] : '',
       district: selectedLocations.length === 1 ? selectedLocations[0] : '',
-      decade: selectedDecades.length === 1 ? selectedDecades[0] : ''
+      decade: selectedDecades.length === 1 ? selectedDecades[0] : '',
+      // Only use region filter if no specific location is selected AND region is not Global
+      region: selectedLocations.length === 0 && selectedRegion && !selectedRegion.isGlobal ? regionName : ''
     };
     setFilters(newFilters);
   };
@@ -322,21 +400,21 @@ const DiscoverLyrics = () => {
   // Reset to default (Hong Kong)
   const handleReset = () => {
     // Find Hong Kong region
-    const hongKongRegion = regions.find(region => 
+    const hongKongRegion = regions.find(region =>
       region.zh === '香港' || region.en === 'Hong Kong'
     );
-    
+
     if (hongKongRegion) {
       setSelectedRegion(hongKongRegion);
       setCurrentStep(2);
     }
-    
+
     // Clear all other selections but keep region
     setSelectedLocations([]);
     setSelectedArtists([]);
     setSelectedDecades([]);
-    setFilters({ artist: '', district: '', decade: '' });
-    
+    setFilters({ artist: '', district: '', decade: '', region: '' });
+
     // Reset map view to Hong Kong
     if (window.setMapCenter) {
       console.log('Resetting map to Hong Kong');
@@ -360,7 +438,7 @@ const DiscoverLyrics = () => {
   const filteredLocations = availableOptions.locations.filter(location =>
     location.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  
+
   const filteredArtists = availableOptions.artists.filter(artist =>
     artist.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -373,17 +451,23 @@ const DiscoverLyrics = () => {
           <h6 className="mb-1">{t.step1}</h6>
           <p className="text-muted small mb-3">{t.step1Subtitle}</p>
           <Form.Select
-            value={selectedRegion ? `${selectedRegion.zh}|${selectedRegion.en}` : ''}
+            value={selectedRegion ? (selectedRegion.isGlobal ? 'GLOBAL' : `${selectedRegion.zh}|${selectedRegion.en}`) : ''}
             onChange={(e) => {
-              const [zh, en] = e.target.value.split('|');
-              const region = regions.find(r => r.zh === zh && r.en === en);
-              if (region) {
-                handleRegionSelect(region);
+              const value = e.target.value;
+              if (value === 'GLOBAL') {
+                handleRegionSelect(GLOBAL_REGION);
+              } else {
+                const [zh, en] = value.split('|');
+                const region = regions.find(r => r.zh === zh && r.en === en);
+                if (region) {
+                  handleRegionSelect(region);
+                }
               }
             }}
             aria-label={t.step1}
           >
             <option value="">{language === 'zh' ? '选择地区' : 'Select Region'}</option>
+            <option value="GLOBAL">{t.global}</option>
             {regions.map((region, index) => (
               <option key={index} value={`${region.zh}|${region.en}`}>
                 {language === 'zh' ? region.zh : region.en}
@@ -396,7 +480,7 @@ const DiscoverLyrics = () => {
         {currentStep >= 2 && selectedRegion && (
           <div className="mb-4">
             <h6 className="mb-3">{t.step2}</h6>
-            
+
             {/* Artist Filter */}
             <div className="mb-3">
               <Form.Select
@@ -476,7 +560,7 @@ const DiscoverLyrics = () => {
                 <p className="mb-3 results-text">
                   {t.resultsSummary(
                     finalFilteredData.length,
-                    selectedRegion ? (language === 'zh' ? selectedRegion.zh : selectedRegion.en) : '',
+                    selectedRegion && !selectedRegion.isGlobal ? (language === 'zh' ? selectedRegion.zh : selectedRegion.en) : '',
                     selectedDecades.length === 1 ? selectedDecades[0] : ''
                   )}
                 </p>
